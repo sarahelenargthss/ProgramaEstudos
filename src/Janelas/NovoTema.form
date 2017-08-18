@@ -112,19 +112,20 @@
           <Font name="Lucida Sans Unicode" size="18" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="12">
-            <StringItem index="0" value="Matem&#xe1;tica"/>
-            <StringItem index="1" value="Biologia"/>
-            <StringItem index="2" value="Geografia"/>
-            <StringItem index="3" value="Hist&#xf3;ria"/>
-            <StringItem index="4" value="F&#xed;sica"/>
-            <StringItem index="5" value="Sociologia"/>
-            <StringItem index="6" value="Qu&#xed;mica"/>
-            <StringItem index="7" value="Portugu&#xea;s"/>
-            <StringItem index="8" value="Literatura"/>
-            <StringItem index="9" value="Espanhol"/>
-            <StringItem index="10" value="Ingl&#xea;s"/>
-            <StringItem index="11" value="Filosofia"/>
+          <StringArray count="13">
+            <StringItem index="0" value="&lt;Selecione a Mat&#xe9;ria&gt;"/>
+            <StringItem index="1" value="Matem&#xe1;tica"/>
+            <StringItem index="2" value="Biologia"/>
+            <StringItem index="3" value="Geografia"/>
+            <StringItem index="4" value="Hist&#xf3;ria"/>
+            <StringItem index="5" value="F&#xed;sica"/>
+            <StringItem index="6" value="Sociologia"/>
+            <StringItem index="7" value="Qu&#xed;mica"/>
+            <StringItem index="8" value="Portugu&#xea;s"/>
+            <StringItem index="9" value="Literatura"/>
+            <StringItem index="10" value="Espanhol"/>
+            <StringItem index="11" value="Ingl&#xea;s"/>
+            <StringItem index="12" value="Filosofia"/>
           </StringArray>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Selecione a mat&#xe9;ria"/>

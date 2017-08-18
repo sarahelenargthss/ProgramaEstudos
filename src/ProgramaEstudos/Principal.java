@@ -28,12 +28,9 @@ public class Principal {
     */
     
     
-    //no login não apgar o nome quando erra a senha
-    //desabilitar botões de perfil quando não há usuário logado
-    //desabilitar botões de login quando há usuário logado
     //colocar instrução de evento no botão voltar do perfil do usuário
     //colocar os ToolTipText
     //colocar a primeira letra do nome do usuario maiuscula quando mostra o perfil
     //por .trim() em tudo
-    //deu erro quando faz login não mostra o nome do logado no menu
+    //perguntar se deseja sair quando ta cadastrando novo usuário/tema e clica em voltar
 }

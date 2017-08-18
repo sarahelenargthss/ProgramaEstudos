@@ -7,9 +7,14 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
         UsuarioDTO useDTO = new UsuarioDTO();
-        nomeLogado.setText(useDTO.retornaLogado());
-        btnLogin.setEnabled(false);
-        
+        String nome = useDTO.retornaLogado();
+        nomeLogado.setText(nome);
+        if (!nome.equals("")) {
+            btnLogin.setEnabled(false);
+        }else{
+            btnPerfil.setEnabled(false);
+            btnCadastrarTema.setEnabled(false);
+        }
     }
 
     Menu(String nome) {
@@ -17,7 +22,7 @@ public class Menu extends javax.swing.JFrame {
         nomeLogado.setText(nome);
         btnLogin.setEnabled(false);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

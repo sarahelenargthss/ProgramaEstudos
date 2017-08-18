@@ -149,21 +149,28 @@ public class Cadastro extends javax.swing.JFrame {
         String senha = Util.retornaString(senhaUsuario.getPassword()).toLowerCase();
         String senhaConfirm = Util.retornaString(confirmaSenha.getPassword()).toLowerCase();
         if (Util.validaString(nome)) {
+            nomeUsuario.setText("");
+            senhaUsuario.setText("");
+            confirmaSenha.setText("");
             Util.mensagemErro("O nome de usuário informado é inválido!", "Nome de usuário inválido!", JOptionPane.ERROR_MESSAGE);
-        } else if (!senha.equals(senhaConfirm)) {
-            Util.mensagemErro("As senhas informadas não são correspondentes!", "Senha Inválida!", JOptionPane.ERROR_MESSAGE);
-        } else if (Util.validaString(senha)) {
-            Util.mensagemErro("A senha informada é inválida!", "Senha inválida!", JOptionPane.ERROR_MESSAGE);
         } else {
-            Usuario usuario = new Usuario(nome, senha);
-            if (usuario.cadastraUsuario()) {
-                Menu menu = new Menu();
-                menu.setVisible(true);
-                this.setVisible(false);
+            senhaUsuario.setText("");
+            confirmaSenha.setText("");
+            if (!senha.equals(senhaConfirm)) {
+                Util.mensagemErro("As senhas informadas não são correspondentes!", "Senha Inválida!", JOptionPane.ERROR_MESSAGE);
+            } else if (Util.validaString(senha)) {
+                Util.mensagemErro("A senha informada é inválida!", "Senha inválida!", JOptionPane.ERROR_MESSAGE);
             } else {
-                nomeUsuario.setText("");
-                senhaUsuario.setText("");
-                confirmaSenha.setText("");
+                Usuario usuario = new Usuario(nome, senha);
+                if (usuario.cadastraUsuario()) {
+                    Menu menu = new Menu();
+                    menu.setVisible(true);
+                    this.setVisible(false);
+                } else {
+                    nomeUsuario.setText("");
+                    senhaUsuario.setText("");
+                    confirmaSenha.setText("");
+                }
             }
         }
     }//GEN-LAST:event_btnSalvarCadastroActionPerformed

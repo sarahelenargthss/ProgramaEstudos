@@ -1,8 +1,19 @@
 package Janelas;
 
+import ProgramaEstudos.QC;
+import dto.UsuarioDTO;
+import util.Util;
+
 public class NovoTema extends javax.swing.JFrame {
 
+    
+    
     public NovoTema() {
+        initComponents();
+        btnSalvarTema.setEnabled(false);
+    }
+    
+    public NovoTema(QC param){
         initComponents();
     }
 
@@ -27,7 +38,7 @@ public class NovoTema extends javax.swing.JFrame {
         jLabel1.setText("Novo Tema");
 
         materiaNovoTema.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 18)); // NOI18N
-        materiaNovoTema.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Matemática", "Biologia", "Geografia", "História", "Física", "Sociologia", "Química", "Português", "Literatura", "Espanhol", "Inglês", "Filosofia" }));
+        materiaNovoTema.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione a Matéria>", "Matemática", "Biologia", "Geografia", "História", "Física", "Sociologia", "Química", "Português", "Literatura", "Espanhol", "Inglês", "Filosofia" }));
         materiaNovoTema.setToolTipText("Selecione a matéria");
 
         jLabel2.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 24)); // NOI18N
@@ -163,7 +174,22 @@ public class NovoTema extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
+    public void mantemEnviaObj(){
+        String titulo = tituloNovoTema.getText().trim();
+        if(materiaNovoTema.getSelectedItem().equals("<Selecione a Matéria>") && Util.validaString(titulo)){
+             CadastrarQC cadastrarQC = new CadastrarQC();
+        cadastrarQC.setVisible(true);
+        this.setVisible(false);
+        }else{
+            UsuarioDTO useDTO = new UsuarioDTO();
+             CadastrarQC cadastrarQC = new CadastrarQC(new Tema(titulo, acessoPrivado.isSelected(),materiaNovoTema.getSelectedItem(), 0 , useDTO.retornaLogado()));
+        cadastrarQC.setVisible(true);
+        this.setVisible(false);
+        }
+    }
+    
     private void btnNovoConceitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoConceitoActionPerformed
+        
         CadastrarQC cadastrarQC = new CadastrarQC();
         cadastrarQC.setVisible(true);
         this.setVisible(false);
