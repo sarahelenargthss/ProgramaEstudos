@@ -1,20 +1,28 @@
 package Janelas;
 
 import ProgramaEstudos.QC;
+import ProgramaEstudos.Tema;
+import dto.TemaDTO;
 import dto.UsuarioDTO;
+import java.util.ArrayList;
 import util.Util;
 
 public class NovoTema extends javax.swing.JFrame {
 
-    
-    
     public NovoTema() {
         initComponents();
         btnSalvarTema.setEnabled(false);
     }
-    
-    public NovoTema(QC param){
+
+    public NovoTema(QC param) {
         initComponents();
+    }
+    
+    NovoTema(Tema tema, ArrayList<QC> qcS) {
+        initComponents();
+        tituloNovoTema.setText(tema.getTituloTema());
+        acessoPrivado.setSelected(tema.isPrivado());
+        materiaNovoTema.setSelectedItem(tema.getMateriaTema());
     }
 
     @SuppressWarnings("unchecked")
@@ -28,7 +36,6 @@ public class NovoTema extends javax.swing.JFrame {
         tituloNovoTema = new javax.swing.JTextField();
         acessoPrivado = new javax.swing.JCheckBox();
         btnNovoConceito = new javax.swing.JButton();
-        btnNovaQuestao = new javax.swing.JButton();
         btnSalvarTema = new javax.swing.JButton();
         btnVoltarMenu = new javax.swing.JButton();
 
@@ -63,20 +70,10 @@ public class NovoTema extends javax.swing.JFrame {
         btnNovoConceito.setBackground(new java.awt.Color(255, 255, 255));
         btnNovoConceito.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         btnNovoConceito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/add.png"))); // NOI18N
-        btnNovoConceito.setText("Adicionar Conceitos");
+        btnNovoConceito.setText("Adicionar Conteúdo");
         btnNovoConceito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoConceitoActionPerformed(evt);
-            }
-        });
-
-        btnNovaQuestao.setBackground(new java.awt.Color(255, 255, 255));
-        btnNovaQuestao.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
-        btnNovaQuestao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/add.png"))); // NOI18N
-        btnNovaQuestao.setText("Adicionar Questões");
-        btnNovaQuestao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovaQuestaoActionPerformed(evt);
             }
         });
 
@@ -126,39 +123,35 @@ public class NovoTema extends javax.swing.JFrame {
                                 .addComponent(acessoPrivado))
                             .addComponent(materiaNovoTema, 0, 289, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnNovaQuestao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnNovoConceito, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnNovoConceito, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(63, 63, 63))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addComponent(jLabel1)
+                .addGap(58, 58, 58)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)
-                        .addComponent(materiaNovoTema, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(btnNovoConceito, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNovaQuestao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(materiaNovoTema, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(acessoPrivado, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(tituloNovoTema, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNovoConceito, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(tituloNovoTema, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarTema, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -174,41 +167,30 @@ public class NovoTema extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
-    public void mantemEnviaObj(){
-        String titulo = tituloNovoTema.getText().trim();
-        if(materiaNovoTema.getSelectedItem().equals("<Selecione a Matéria>") && Util.validaString(titulo)){
-             CadastrarQC cadastrarQC = new CadastrarQC();
-        cadastrarQC.setVisible(true);
-        this.setVisible(false);
-        }else{
-            UsuarioDTO useDTO = new UsuarioDTO();
-             CadastrarQC cadastrarQC = new CadastrarQC(new Tema(titulo, acessoPrivado.isSelected(),materiaNovoTema.getSelectedItem(), 0 , useDTO.retornaLogado()));
-        cadastrarQC.setVisible(true);
-        this.setVisible(false);
-        }
-    }
-    
+
     private void btnNovoConceitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoConceitoActionPerformed
-        
-        CadastrarQC cadastrarQC = new CadastrarQC();
+        CadastrarQC cadastrarQC;
+        String titulo = tituloNovoTema.getText().trim();
+        if (!(materiaNovoTema.getSelectedItem().equals("<Selecione a Matéria>") && !Util.validaString(titulo))) {
+            UsuarioDTO useDTO = new UsuarioDTO();
+            Tema tema = new Tema(titulo, acessoPrivado.isSelected(), (String) materiaNovoTema.getSelectedItem(), 0, useDTO.retornaLogado());
+            TemaDTO temaDTO = new TemaDTO();
+            temaDTO.salvaTema(tema);
+            //salvar arraylist no BD e arrumar para quando ele entrar no novo CasdastroQC
+        }
+        cadastrarQC = new CadastrarQC();
+        cadastrarQC.setVisible(true);
         cadastrarQC.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnNovoConceitoActionPerformed
 
-    private void btnNovaQuestaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaQuestaoActionPerformed
-        CadastrarQC cadastrarQC = new CadastrarQC();
-        cadastrarQC.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnNovaQuestaoActionPerformed
-
     private void btnSalvarTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTemaActionPerformed
-        
+
     }//GEN-LAST:event_btnSalvarTemaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox acessoPrivado;
-    private javax.swing.JButton btnNovaQuestao;
     private javax.swing.JButton btnNovoConceito;
     private javax.swing.JButton btnSalvarTema;
     private javax.swing.JButton btnVoltarMenu;

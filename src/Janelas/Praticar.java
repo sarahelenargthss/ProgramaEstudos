@@ -115,7 +115,7 @@ public class Praticar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarTemaActionPerformed
-        Tema tema = new Tema();
+        mostraTema tema = new mostraTema();
         tema.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarTemaActionPerformed

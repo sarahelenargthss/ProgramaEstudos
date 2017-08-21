@@ -1,24 +1,31 @@
 package Janelas;
 
+import ProgramaEstudos.QC;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import util.Util;
-
 
 public class CadastrarQC extends javax.swing.JFrame {
 
     public CadastrarQC() {
         initComponents();
+        mostraLista(null);
+    }
+    public ArrayList<QC> getQcS() {
+        return qcS;
     }
 
-    CadastrarQC(Tema tema) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setQcS(ArrayList<QC> qcS) {
+        this.qcS = qcS;
     }
 
-    
+    private ArrayList<QC> qcS = new ArrayList();
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        titulo = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         labTermoPergunta = new javax.swing.JLabel();
         labConceitoResposta = new javax.swing.JLabel();
@@ -28,12 +35,12 @@ public class CadastrarQC extends javax.swing.JFrame {
         termoPergunta = new javax.swing.JTextArea();
         btnVoltarCadastro = new javax.swing.JButton();
         listQC = new java.awt.List();
-        jLabel2 = new javax.swing.JLabel();
+        titulo1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 24)); // NOI18N
-        jLabel1.setText("[novo conceito / nova questão]");
+        titulo.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 24)); // NOI18N
+        titulo.setText("Novo Conteúdo");
 
         btnSalvar.setBackground(new java.awt.Color(255, 255, 255));
         btnSalvar.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
@@ -47,10 +54,10 @@ public class CadastrarQC extends javax.swing.JFrame {
         });
 
         labTermoPergunta.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
-        labTermoPergunta.setText("[Termo / pergunta]");
+        labTermoPergunta.setText("Termo / Pergunta");
 
         labConceitoResposta.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
-        labConceitoResposta.setText("[Conceito/ resposta]");
+        labConceitoResposta.setText("Conceito / Resposta");
 
         conceitoResposta.setColumns(20);
         conceitoResposta.setRows(5);
@@ -78,16 +85,26 @@ public class CadastrarQC extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("*Abaixo aperecerá a lista de perguntas / conceitos já cadastrados");
+        titulo1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 18)); // NOI18N
+        titulo1.setText("Já adicionados:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(titulo)
+                .addGap(327, 327, 327))
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel2)
-                .addGap(67, 67, 67)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(listQC, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(titulo1)))
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labConceitoResposta)
                     .addComponent(labTermoPergunta)
@@ -99,75 +116,93 @@ public class CadastrarQC extends javax.swing.JFrame {
                             .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(37, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(184, 184, 184))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(46, 46, 46)
-                    .addComponent(listQC, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(406, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addComponent(titulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labTermoPergunta)
-                    .addComponent(jLabel2))
+                    .addComponent(titulo1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labConceitoResposta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVoltarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labConceitoResposta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVoltarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(listQC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(49, 49, 49))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(126, 126, 126)
-                    .addComponent(listQC, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(51, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(Util.validaString(conceitoResposta.getText()) || Util.validaString(termoPergunta.getText())){
-            
+        if (Util.validaString(conceitoResposta.getText()) || Util.validaString(termoPergunta.getText())) {
+            Util.mensagemErro("Algum campo não foi preenchido", "Preencha todos os campos!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            boolean existe = false;
+            QC qc = new QC(termoPergunta.getText().trim(), conceitoResposta.getText().trim());
+            for (QC qcAux : qcS) {
+                if (qc.getConceitoResposta().equals(qcAux.getConceitoResposta()) && qc.getTermoPergunta().equals(qcAux.getTermoPergunta())) {
+                    Util.mensagemErro("Este conteúdo já foi cadastrado!", "Conteúdo já existente!", JOptionPane.ERROR_MESSAGE);
+                    existe = true;
+                }
+            }
+            if (!existe) {
+                qcS.add(qc);
+                //salvar no BD
+                //excluir ArrayList
+                termoPergunta.setText("");
+                conceitoResposta.setText("");
+                mostraLista(qc);
+            }
+
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnVoltarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroActionPerformed
+        
         NovoTema novoTema = new NovoTema();
         novoTema.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarCadastroActionPerformed
 
     private void listQCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listQCActionPerformed
-        
+
     }//GEN-LAST:event_listQCActionPerformed
 
-    
+    private void mostraLista(QC qc) {
+        //mostrar do BD
+        if (qc != null) {
+            listQC.add(qc.getTermoPergunta());
+        } else {
+            for (QC qcObj : qcS) {
+                listQC.add(qcObj.getTermoPergunta());
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltarCadastro;
     private javax.swing.JTextArea conceitoResposta;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labConceitoResposta;
     private javax.swing.JLabel labTermoPergunta;
     private java.awt.List listQC;
     private javax.swing.JTextArea termoPergunta;
+    private javax.swing.JLabel titulo;
+    private javax.swing.JLabel titulo1;
     // End of variables declaration//GEN-END:variables
+
 }

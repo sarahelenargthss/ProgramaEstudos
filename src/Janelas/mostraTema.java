@@ -1,15 +1,12 @@
 package Janelas;
 
-public class Tema extends javax.swing.JFrame {
+public class mostraTema extends javax.swing.JFrame {
 
-    public Tema() {
+    public mostraTema() {
         initComponents();
     }
-
-    Tema(String titulo, boolean selected, Object selectedItem, int i, String retornaLogado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
