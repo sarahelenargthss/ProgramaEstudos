@@ -33,4 +33,18 @@ public class Principal {
     //colocar a primeira letra do nome do usuario maiuscula quando mostra o perfil
     //por .trim() em tudo
     //perguntar se deseja sair quando ta cadastrando novo usuário/tema e clica em voltar
+    
+    
+    
+    /////////AQUIIII
+    //quando um tema estava sendo cadastrado e ele aperta em adicionar conteúdo,
+    //o "pré-tema" é salvo
+    //mas se der pau e o programa fechar, aquele pré-tema, que é diferente de um tema já cadastrado,
+    //continuou no BD pq so isso ser atualizado quando ele salavasse o tema
+    //então quando o programa começa a rodar, depois de verificar se tem alguém logado...
+        //se tiver já verifica se tem algum pré-tema dele salvo no BD
+        //toda vez que um usuario ´fizer login, vifica se tem algum pré-tema dele no BD
+        //quando tiver a gente da um JOption de opção (sla) e pergunta se ele quer continuar o cadastro
+            //se ele quiser manda ele pro cadastra tema com os dados do pré-tema (dai tem que ver o que fazer com o codigo pra por os conteúdos tbm...)
+            //senão, apaga o pré-tema do BD
 }

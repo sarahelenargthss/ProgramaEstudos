@@ -4,6 +4,11 @@ public class QC {
     private String termoPergunta;
     private String conceitoResposta;
 
+    public QC(String trmPrg, String cntRsp) {
+        this.termoPergunta = trmPrg;
+        this.conceitoResposta = cntRsp;
+    }
+
     public String getTermoPergunta() {
         return termoPergunta;
     }

@@ -172,11 +172,16 @@ public class NovoTema extends javax.swing.JFrame {
         CadastrarQC cadastrarQC;
         String titulo = tituloNovoTema.getText().trim();
         if (!(materiaNovoTema.getSelectedItem().equals("<Selecione a Matéria>") && !Util.validaString(titulo))) {
+            //se o usuário já tiver preenchido alguma coisa e quiser adicionar um novo conteúdo,
+            //o que ele já cadastrou terá que ser salvo para que quando ele volte seus dados ainda "estejam la"
             UsuarioDTO useDTO = new UsuarioDTO();
-            Tema tema = new Tema(titulo, acessoPrivado.isSelected(), (String) materiaNovoTema.getSelectedItem(), 0, useDTO.retornaLogado());
+            //então seus dados serão salvos no BD e serão depois identificados com uma cerquilha no começo do nome da matéria
+            //o nome da matéia possui uma lista de dados possíveis, assim se pode ter certeza que não haverá outro tema com a cerquilha
+            //objeto de tema é criado:
+            Tema tema = new Tema(titulo, acessoPrivado.isSelected(), ("#" + (String) materiaNovoTema.getSelectedItem()), 0, useDTO.retornaLogado());
             TemaDTO temaDTO = new TemaDTO();
+            //pré-tema é salvo no BD:
             temaDTO.salvaTema(tema);
-            //salvar arraylist no BD e arrumar para quando ele entrar no novo CasdastroQC
         }
         cadastrarQC = new CadastrarQC();
         cadastrarQC.setVisible(true);

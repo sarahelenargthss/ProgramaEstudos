@@ -158,6 +158,7 @@ public class CadastrarQC extends javax.swing.JFrame {
                 }
             }
             if (!existe) {
+                
                 qcS.add(qc);
                 //salvar no BD
                 //excluir ArrayList

@@ -7,6 +7,14 @@ public class Tema {
     private int codTema;
     private String nomeUsuario;
 
+    public Tema(String titulo, boolean privado, String materia, int codigo, String usuarioLogado) {
+        this.tituloTema = titulo;
+        this.privado = privado;
+        this.materiaTema = materia;
+        this.codTema = codigo;
+        this.nomeUsuario = usuarioLogado;
+    }
+
     public String getTituloTema() {
         return tituloTema;
     }
