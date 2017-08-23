@@ -1,7 +1,7 @@
 package Janelas;
 
 import ProgramaEstudos.QC;
-import java.util.ArrayList;
+import dto.QcDTO;
 import javax.swing.JOptionPane;
 import util.Util;
 
@@ -11,15 +11,14 @@ public class CadastrarQC extends javax.swing.JFrame {
         initComponents();
         mostraLista(null);
     }
-    public ArrayList<QC> getQcS() {
-        return qcS;
-    }
 
-    public void setQcS(ArrayList<QC> qcS) {
-        this.qcS = qcS;
-    }
+    private int codTemaCadastro;
 
-    private ArrayList<QC> qcS = new ArrayList();
+    CadastrarQC(int codTema) {
+        codTemaCadastro = codTema;
+        initComponents();
+        mostraLista(null);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -150,16 +149,11 @@ public class CadastrarQC extends javax.swing.JFrame {
             Util.mensagemErro("Algum campo não foi preenchido", "Preencha todos os campos!", JOptionPane.ERROR_MESSAGE);
         } else {
             boolean existe = false;
-            QC qc = new QC(termoPergunta.getText().trim(), conceitoResposta.getText().trim());
-            for (QC qcAux : qcS) {
-                if (qc.getConceitoResposta().equals(qcAux.getConceitoResposta()) && qc.getTermoPergunta().equals(qcAux.getTermoPergunta())) {
-                    Util.mensagemErro("Este conteúdo já foi cadastrado!", "Conteúdo já existente!", JOptionPane.ERROR_MESSAGE);
-                    existe = true;
-                }
-            }
+            QC qc = new QC(termoPergunta.getText().trim(), conceitoResposta.getText().trim(), codTemaCadastro);
+            QcDTO qcDTO = new QcDTO();
+            existe = qcDTO.verificaQC(qc);
             if (!existe) {
-                
-                qcS.add(qc);
+
                 //salvar no BD
                 //excluir ArrayList
                 termoPergunta.setText("");
@@ -171,7 +165,7 @@ public class CadastrarQC extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnVoltarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroActionPerformed
-        
+
         NovoTema novoTema = new NovoTema();
         novoTema.setVisible(true);
         this.setVisible(false);
@@ -183,13 +177,13 @@ public class CadastrarQC extends javax.swing.JFrame {
 
     private void mostraLista(QC qc) {
         //mostrar do BD
-        if (qc != null) {
+        /*if (qc != null) {
             listQC.add(qc.getTermoPergunta());
         } else {
             for (QC qcObj : qcS) {
                 listQC.add(qcObj.getTermoPergunta());
             }
-        }
+        }*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

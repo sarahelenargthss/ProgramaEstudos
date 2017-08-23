@@ -36,6 +36,17 @@ public class Principal {
     
     
     
+    
+    
+    
+    
+    //pensar na mensagenzinha no novotema quando ele quer adicionar conteúdo e deu pau na conexão com o BD
+    //
+    
+    
+    
+    
+    
     /////////AQUIIII
     //quando um tema estava sendo cadastrado e ele aperta em adicionar conteúdo,
     //o "pré-tema" é salvo

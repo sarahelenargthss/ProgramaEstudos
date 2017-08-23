@@ -5,6 +5,7 @@ import ProgramaEstudos.Tema;
 import dto.TemaDTO;
 import dto.UsuarioDTO;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import util.Util;
 
 public class NovoTema extends javax.swing.JFrame {
@@ -17,7 +18,7 @@ public class NovoTema extends javax.swing.JFrame {
     public NovoTema(QC param) {
         initComponents();
     }
-    
+
     NovoTema(Tema tema, ArrayList<QC> qcS) {
         initComponents();
         tituloNovoTema.setText(tema.getTituloTema());
@@ -181,12 +182,29 @@ public class NovoTema extends javax.swing.JFrame {
             Tema tema = new Tema(titulo, acessoPrivado.isSelected(), ("#" + (String) materiaNovoTema.getSelectedItem()), 0, useDTO.retornaLogado());
             TemaDTO temaDTO = new TemaDTO();
             //pré-tema é salvo no BD:
-            temaDTO.salvaTema(tema);
+            if (!temaDTO.salvaTema(tema)) {
+                cadastrarQC = new CadastrarQC();
+                cadastrarQC.setVisible(true);
+                cadastrarQC.setVisible(true);
+                this.setVisible(false);
+            } else {
+                Util.mensagemErro("", "Opção inviável no momento!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            //se o usuario não digitou nada ainda
+            //salva um tema com valores que no futuro serão modificados
+            //para quando for salvar os conteúdos já existir um código e não dar erro no 
+            Tema tema = new Tema("#", false, "#", 0, "#");
+            TemaDTO temaDTO = new TemaDTO();
+            if (!temaDTO.salvaTema(tema)) {
+                cadastrarQC = new CadastrarQC();
+                cadastrarQC.setVisible(true);
+                cadastrarQC.setVisible(true);
+                this.setVisible(false);
+            } else {
+                Util.mensagemErro("", "Opção inviável no momento!", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        cadastrarQC = new CadastrarQC();
-        cadastrarQC.setVisible(true);
-        cadastrarQC.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_btnNovoConceitoActionPerformed
 
     private void btnSalvarTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTemaActionPerformed

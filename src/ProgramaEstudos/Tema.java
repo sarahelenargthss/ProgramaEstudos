@@ -15,6 +15,10 @@ public class Tema {
         this.nomeUsuario = usuarioLogado;
     }
 
+    public Tema() {
+        
+    }
+
     public String getTituloTema() {
         return tituloTema;
     }
