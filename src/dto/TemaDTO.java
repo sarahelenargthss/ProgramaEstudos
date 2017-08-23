@@ -24,11 +24,17 @@ public class TemaDTO {
         return true;
     }
 
-    public Tema retornaPreTema() {
+    public Tema retornaTema(int cod) {
         Tema tema = new Tema();
+        PreparedStatement p;
         try {
-            PreparedStatement p = Util.retornaConexao("SELECT * FROM TEMA WHERE MATERIA_TEMA = ?");
-            p.setString(1, "#%");
+            if (cod == 0) {
+                p = Util.retornaConexao("SELECT * FROM TEMA WHERE MATERIA_TEMA = ?");
+                p.setString(1, "#%");
+            } else {
+                p = Util.retornaConexao("SELECT * FROM TEMA WHERE COD_TEMA = ?");
+                p.setInt(1, cod);
+            }
             ResultSet rs = p.executeQuery();
             if (rs.next()) {
                 tema.setCodTema(rs.getInt(1));

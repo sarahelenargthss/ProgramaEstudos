@@ -2,6 +2,7 @@ package Janelas;
 
 import ProgramaEstudos.QC;
 import dto.QcDTO;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import util.Util;
 
@@ -148,25 +149,25 @@ public class CadastrarQC extends javax.swing.JFrame {
         if (Util.validaString(conceitoResposta.getText()) || Util.validaString(termoPergunta.getText())) {
             Util.mensagemErro("Algum campo não foi preenchido", "Preencha todos os campos!", JOptionPane.ERROR_MESSAGE);
         } else {
-            boolean existe = false;
+            int existe = 0;
             QC qc = new QC(termoPergunta.getText().trim(), conceitoResposta.getText().trim(), codTemaCadastro);
             QcDTO qcDTO = new QcDTO();
             existe = qcDTO.verificaQC(qc);
-            if (!existe) {
-
-                //salvar no BD
-                //excluir ArrayList
-                termoPergunta.setText("");
-                conceitoResposta.setText("");
+            if (existe == 1) {
+                qcDTO.salvaConteudo(qc);
                 mostraLista(qc);
+            } else if (existe == 2) {
+                //já existe no BD
+                Util.mensagemErro("Esse conteúdo já foi cadastrado anteriormente.", "Conteúdo já existente!", JOptionPane.ERROR_MESSAGE);
             }
-
+            termoPergunta.setText("");
+            conceitoResposta.setText("");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnVoltarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroActionPerformed
 
-        NovoTema novoTema = new NovoTema();
+        NovoTema novoTema = new NovoTema(codTemaCadastro);
         novoTema.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarCadastroActionPerformed
@@ -176,14 +177,13 @@ public class CadastrarQC extends javax.swing.JFrame {
     }//GEN-LAST:event_listQCActionPerformed
 
     private void mostraLista(QC qc) {
-        //mostrar do BD
-        /*if (qc != null) {
-            listQC.add(qc.getTermoPergunta());
-        } else {
+        QcDTO qcDTO = new QcDTO();
+        ArrayList<QC> qcS = qcDTO.retornaQCs(codTemaCadastro);
+        if (qcS != null) {
             for (QC qcObj : qcS) {
                 listQC.add(qcObj.getTermoPergunta());
             }
-        }*/
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

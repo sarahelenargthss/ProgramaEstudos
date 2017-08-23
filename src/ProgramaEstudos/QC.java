@@ -5,11 +5,18 @@ public class QC {
     private String conceitoResposta;
     private int codTema;
 
-    public QC(String trmPrg, String cntRsp) {
-        this.termoPergunta = trmPrg;
-        this.conceitoResposta = cntRsp;
-        
+    public QC() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public int getCodTema() {
+        return codTema;
+    }
+
+    public void setCodTema(int codTema) {
+        this.codTema = codTema;
+    }
+
 
     public QC(String trmPrg, String cntRsp, int codTemaCadastro) {
         this.termoPergunta = trmPrg;
@@ -32,4 +39,5 @@ public class QC {
     public void setConceitoResposta(String conceitoResposta) {
         this.conceitoResposta = conceitoResposta;
     }
+
 }

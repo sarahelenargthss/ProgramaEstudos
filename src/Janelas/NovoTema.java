@@ -15,8 +15,13 @@ public class NovoTema extends javax.swing.JFrame {
         btnSalvarTema.setEnabled(false);
     }
 
-    public NovoTema(QC param) {
+    public NovoTema(int cod) {
         initComponents();
+        TemaDTO temaDTO = new TemaDTO();
+        Tema tema = temaDTO.retornaTema(cod);
+        acessoPrivado.setSelected(tema.isPrivado());
+        tituloNovoTema.setText(tema.getTituloTema());
+        materiaNovoTema.setSelectedIndex(3);
     }
 
     NovoTema(Tema tema, ArrayList<QC> qcS) {
