@@ -187,8 +187,10 @@ public class NovoTema extends javax.swing.JFrame {
             Tema tema = new Tema(titulo, acessoPrivado.isSelected(), ("#" + (String) materiaNovoTema.getSelectedItem()), 0, useDTO.retornaLogado());
             TemaDTO temaDTO = new TemaDTO();
             //pré-tema é salvo no BD:
-            if (!temaDTO.salvaTema(tema)) {
-                cadastrarQC = new CadastrarQC();
+            if (temaDTO.salvaTema(tema)) {
+                tema.retornaCod();
+                System.out.println(tema.getCodTema());
+                cadastrarQC = new CadastrarQC(tema.getCodTema());
                 cadastrarQC.setVisible(true);
                 cadastrarQC.setVisible(true);
                 this.setVisible(false);
@@ -201,8 +203,8 @@ public class NovoTema extends javax.swing.JFrame {
             //para quando for salvar os conteúdos já existir um código e não dar erro no 
             Tema tema = new Tema("#", false, "#", 0, "#");
             TemaDTO temaDTO = new TemaDTO();
-            if (!temaDTO.salvaTema(tema)) {
-                cadastrarQC = new CadastrarQC();
+            if (temaDTO.salvaTema(tema)) {
+                cadastrarQC = new CadastrarQC(tema.getCodTema());
                 cadastrarQC.setVisible(true);
                 cadastrarQC.setVisible(true);
                 this.setVisible(false);

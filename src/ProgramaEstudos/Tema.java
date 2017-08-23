@@ -1,5 +1,7 @@
 package ProgramaEstudos;
 
+import dto.TemaDTO;
+
 public class Tema {
     private String tituloTema;
     private boolean privado;
@@ -57,5 +59,10 @@ public class Tema {
 
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
+    }
+
+    public void retornaCod() {
+        TemaDTO temaDTO = new TemaDTO();
+        codTema = temaDTO.retornaTema(0).getCodTema();
     }
 }

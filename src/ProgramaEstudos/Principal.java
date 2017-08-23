@@ -43,9 +43,9 @@ public class Principal {
     //pensar na mensagenzinha no novotema quando ele quer adicionar conteúdo e deu pau na conexão com o BD
     //
     
+    //tirar as cerquilhas dps de salvar tema
     
-    
-    
+    //NÃO TA PEGANDO O COD DO TEMA
     
     /////////AQUIIII
     //quando um tema estava sendo cadastrado e ele aperta em adicionar conteúdo,

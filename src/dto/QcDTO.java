@@ -11,22 +11,23 @@ import util.Util;
 public class QcDTO {
 
     public int verificaQC(QC qc) {
-        int cod = 0;
+        String tp = "";
+        String cr = "";
         try {
-            PreparedStatement p = Util.retornaConexao("SELECT COD_TEMA FROM TEMA WHERE (TERMO_PERGUNTA = ?) AND (CONCEITO_RESPOSTA = ?)");
-            p.setString(1, qc.getTermoPergunta());
-            p.setString(1, qc.getConceitoResposta());
+            PreparedStatement p = Util.retornaConexao("SELECT TERMO_PERGUNTA, CONCEITO_RESPOSTA FROM QC WHERE COD_TEMA = ?");
+            p.setInt(1, qc.getCodTema());
             ResultSet rs = p.executeQuery();
             if (rs.next()) {
-                cod = rs.getInt(1);
+                tp = rs.getString(1);
+                cr = rs.getString(2);
             }
-            if (cod == qc.getCodTema()) {
+            if (qc.getTermoPergunta().equals(tp) && qc.getConceitoResposta().equals(cr)) {
                 return 2;
             } else {
                 return 1;
             }
         } catch (SQLException e) {
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados! VERIFICAQC", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return 3;
         }
     }
@@ -34,12 +35,15 @@ public class QcDTO {
     public void salvaConteudo(QC qc) {
         try {
             PreparedStatement p = Util.retornaConexao("INSERT INTO QC VALUES (? , ?, ?);");
+            System.out.println(qc.getTermoPergunta());
+            System.out.println(qc.getConceitoResposta());
+            System.out.println(qc.getCodTema());
             p.setString(1, qc.getTermoPergunta());
             p.setString(2, qc.getConceitoResposta());
             p.setInt(3, qc.getCodTema());
             p.execute();
         } catch (SQLException e) {
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados! SALAVACONTEUDO", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
