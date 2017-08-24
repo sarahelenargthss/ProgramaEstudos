@@ -87,7 +87,8 @@ public class UsuarioDTO {
     public String retornaLogado() {
         String nome = "";
         try {
-            PreparedStatement p = Util.retornaConexao("SELECT NOME_USUARIO FROM USUARIO WHERE USUARIO_LOGADO = TRUE;");
+            PreparedStatement p = Util.retornaConexao("SELECT NOME_USUARIO FROM USUARIO WHERE USUARIO_LOGADO = ?;");
+            p.setBoolean(1, true);
             ResultSet rs = p.executeQuery();
             if (rs.next()) {
                 nome = rs.getString(1);

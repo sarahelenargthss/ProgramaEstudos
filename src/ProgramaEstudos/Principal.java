@@ -36,7 +36,10 @@ public class Principal {
     
     
     
+    //TIRAR O NOME DOS MÉTODOS NAS MENSAGENS DE EERO COM BD
     
+    //arrumar o retorna qcS : precisa pegar todos os resultados, ele repete pra pegar todos mas pega só o ultimo
+    //dai o ultimo aparece o numero do tamanho da lista
     
     
     

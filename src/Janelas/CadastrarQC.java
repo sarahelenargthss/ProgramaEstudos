@@ -182,6 +182,8 @@ public class CadastrarQC extends javax.swing.JFrame {
         if (qcS != null) {
             for (QC qcObj : qcS) {
                 listQC.add(qcObj.getTermoPergunta());
+                System.out.println("termo: " + qcObj.getTermoPergunta());
+                System.out.println("conceito : " + qcObj.getConceitoResposta());
             }
         }
     }

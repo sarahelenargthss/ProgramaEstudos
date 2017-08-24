@@ -50,18 +50,27 @@ public class QcDTO {
     public ArrayList<QC> retornaQCs(int cod) {
         ArrayList<QC> qcS = new ArrayList();
         try {
-            PreparedStatement p = Util.retornaConexao("SELECT * FROM QC WHERE COD_TEMA = ?");
+            PreparedStatement p = Util.retornaConexao("SELECT * FROM QC WHERE COD_TEMA = ?;");
             p.setInt(1, cod);
             ResultSet rs = p.executeQuery();
             QC qc = new QC();
-            if (rs.next()) {
+            /*while(rs.next()){
                 qc.setTermoPergunta(rs.getString(1));
                 qc.setConceitoResposta(rs.getString(2));
                 qc.setCodTema(rs.getInt(3));
                 qcS.add(qc);
-            }
+            }*/
+            
+            /*if (rs.next()) {
+                qcS = (ArrayList<QC>) rs.getArray(1);
+               
+            } 
+            qc.setTermoPergunta(rs.getString(1));
+                qc.setConceitoResposta(rs.getString(2));
+                qc.setCodTema(rs.getInt(3));
+                qcS.add(qc);*/
         } catch (SQLException e) {
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados! RETORNA QCS", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return null;
         }
         return qcS;

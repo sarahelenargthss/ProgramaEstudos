@@ -4,6 +4,7 @@ import ProgramaEstudos.QC;
 import ProgramaEstudos.Tema;
 import dto.TemaDTO;
 import dto.UsuarioDTO;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import util.Util;
@@ -21,7 +22,7 @@ public class NovoTema extends javax.swing.JFrame {
         Tema tema = temaDTO.retornaTema(cod);
         acessoPrivado.setSelected(tema.isPrivado());
         tituloNovoTema.setText(tema.getTituloTema());
-        materiaNovoTema.setSelectedIndex(3);
+        materiaNovoTema.setSelectedIndex(retornaNumeroMateria(tema.getMateriaTema()));
     }
 
     NovoTema(Tema tema, ArrayList<QC> qcS) {
@@ -215,9 +216,19 @@ public class NovoTema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoConceitoActionPerformed
 
     private void btnSalvarTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTemaActionPerformed
-
+       
     }//GEN-LAST:event_btnSalvarTemaActionPerformed
 
+    private int retornaNumeroMateria(String materiaTema) {
+        ItemListener[] materias = materiaNovoTema.getItemListeners();
+        int numMat = 1;
+        for(int i  = 0; i <= materias.length; i++){
+            //if(materiaTema.replaceAll("#", "").equals(materias[i].toString())){
+            //    numMat = i + 1;
+            //}
+        }
+        return numMat;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox acessoPrivado;
@@ -230,4 +241,5 @@ public class NovoTema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> materiaNovoTema;
     private javax.swing.JTextField tituloNovoTema;
     // End of variables declaration//GEN-END:variables
+
 }

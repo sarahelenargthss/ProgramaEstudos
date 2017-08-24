@@ -18,7 +18,7 @@ public class TemaDTO {
             p.setString(4, tema.getNomeUsuario());
             p.execute();
         } catch (SQLException e) {
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados! SALVATEMA", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
@@ -29,7 +29,7 @@ public class TemaDTO {
         PreparedStatement p;
         try {
             if (cod == 0) {
-                p = Util.retornaConexao("SELECT * FROM TEMA WHERE MATERIA_TEMA = ?");
+                p = Util.retornaConexao("SELECT * FROM TEMA WHERE MATERIA_TEMA LIKE ?");
                 p.setString(1, "#%");
             } else {
                 p = Util.retornaConexao("SELECT * FROM TEMA WHERE COD_TEMA = ?");
@@ -44,7 +44,7 @@ public class TemaDTO {
                 tema.setNomeUsuario(rs.getString(5));
             }
         } catch (SQLException e) {
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados! RETORNATEMA", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return null;
         }
         return tema;
