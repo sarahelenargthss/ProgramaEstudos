@@ -178,6 +178,7 @@ public class CadastrarQC extends javax.swing.JFrame {
 
     private void mostraLista(QC qc) {
         QcDTO qcDTO = new QcDTO();
+        listQC.removeAll();
         ArrayList<QC> qcS = qcDTO.retornaQCs(codTemaCadastro);
         if (qcS != null) {
             for (QC qcObj : qcS) {

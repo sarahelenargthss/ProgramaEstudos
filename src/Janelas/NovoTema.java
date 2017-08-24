@@ -4,7 +4,7 @@ import ProgramaEstudos.QC;
 import ProgramaEstudos.Tema;
 import dto.TemaDTO;
 import dto.UsuarioDTO;
-import java.awt.event.ItemListener;
+import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import util.Util;
@@ -220,14 +220,18 @@ public class NovoTema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarTemaActionPerformed
 
     private int retornaNumeroMateria(String materiaTema) {
-        ItemListener[] materias = materiaNovoTema.getItemListeners();
+        String[] materias = new String[13];
         int numMat = 1;
-        for(int i  = 0; i <= materias.length; i++){
-            //if(materiaTema.replaceAll("#", "").equals(materias[i].toString())){
-            //    numMat = i + 1;
-            //}
+        materiaNovoTema.getItemAt(6);
+        for(int i = 0; i <= 12; i++){
+            materias[i] = materiaNovoTema.getItemAt(i);
         }
-        return numMat;
+        for(int i = 0; i <= materias.length - 1; i++){
+            if(materiaTema.replace("#", "").equals(materias[i])){
+                numMat = i + 1;
+            }
+        }
+        return numMat -1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

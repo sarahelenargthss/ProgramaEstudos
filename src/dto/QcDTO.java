@@ -27,7 +27,7 @@ public class QcDTO {
                 return 1;
             }
         } catch (SQLException e) {
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados! VERIFICAQC", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return 3;
         }
     }
@@ -35,15 +35,12 @@ public class QcDTO {
     public void salvaConteudo(QC qc) {
         try {
             PreparedStatement p = Util.retornaConexao("INSERT INTO QC VALUES (? , ?, ?);");
-            System.out.println(qc.getTermoPergunta());
-            System.out.println(qc.getConceitoResposta());
-            System.out.println(qc.getCodTema());
             p.setString(1, qc.getTermoPergunta());
             p.setString(2, qc.getConceitoResposta());
             p.setInt(3, qc.getCodTema());
             p.execute();
         } catch (SQLException e) {
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados! SALAVACONTEUDO", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -54,23 +51,15 @@ public class QcDTO {
             p.setInt(1, cod);
             ResultSet rs = p.executeQuery();
             QC qc = new QC();
-            /*while(rs.next()){
+            while(rs.next()){
+                qc = new QC();
                 qc.setTermoPergunta(rs.getString(1));
                 qc.setConceitoResposta(rs.getString(2));
                 qc.setCodTema(rs.getInt(3));
                 qcS.add(qc);
-            }*/
-            
-            /*if (rs.next()) {
-                qcS = (ArrayList<QC>) rs.getArray(1);
-               
-            } 
-            qc.setTermoPergunta(rs.getString(1));
-                qc.setConceitoResposta(rs.getString(2));
-                qc.setCodTema(rs.getInt(3));
-                qcS.add(qc);*/
+            }
         } catch (SQLException e) {
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados! RETORNA QCS", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return null;
         }
         return qcS;

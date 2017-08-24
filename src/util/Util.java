@@ -34,7 +34,7 @@ public class Util {
     }
 
     public static PreparedStatement retornaConexao(String sql) {
-        String str = "jdbc:mysql://localhost:3306/PROGRAMA_ESTUDOS?" + "user=root&password=root";
+        String str = "jdbc:mysql://localhost:3306/PROGRAMA_ESTUDOS?" + "user=root&password=alunoifc";
         PreparedStatement p;
         try {
             Connection conn = (Connection) DriverManager.getConnection(str);

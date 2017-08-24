@@ -38,17 +38,13 @@ public class Principal {
     
     //TIRAR O NOME DOS MÉTODOS NAS MENSAGENS DE EERO COM BD
     
-    //arrumar o retorna qcS : precisa pegar todos os resultados, ele repete pra pegar todos mas pega só o ultimo
-    //dai o ultimo aparece o numero do tamanho da lista
     
-    
-    
+    //arrumar retorna numMateria
     //pensar na mensagenzinha no novotema quando ele quer adicionar conteúdo e deu pau na conexão com o BD
     //
     
     //tirar as cerquilhas dps de salvar tema
     
-    //NÃO TA PEGANDO O COD DO TEMA
     
     /////////AQUIIII
     //quando um tema estava sendo cadastrado e ele aperta em adicionar conteúdo,
