@@ -133,6 +133,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Praticar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPraticarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lab">
       <Properties>

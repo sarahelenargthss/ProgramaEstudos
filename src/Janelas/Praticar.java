@@ -1,5 +1,10 @@
 package Janelas;
 
+import ProgramaEstudos.QC;
+import dto.QcDTO;
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Praticar extends javax.swing.JFrame {
 
     public Praticar() {
@@ -7,20 +12,31 @@ public class Praticar extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    ArrayList<QC> conteudos;
+    ArrayList<QC> jogando;
+    String resposta;
+
+    Praticar(int codTema) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        QcDTO qcDTO = new QcDTO();
+        conteudos = qcDTO.retornaQCsTema(codTema);
+        jogando = conteudos;
+        resposta = "";
+        praticando();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         btnVerResposta = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listTermoPergunta = new java.awt.List();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        listConceitoResposta = new java.awt.List();
         btnVoltarTema = new javax.swing.JButton();
         btnProximo = new javax.swing.JButton();
-        btnAnterior = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        termos = new java.awt.TextArea();
+        resp = new java.awt.TextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -28,10 +44,11 @@ public class Praticar extends javax.swing.JFrame {
         btnVerResposta.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 14)); // NOI18N
         btnVerResposta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/check.png"))); // NOI18N
         btnVerResposta.setText("Ver Resposta");
-
-        jScrollPane1.setViewportView(listTermoPergunta);
-
-        jScrollPane2.setViewportView(listConceitoResposta);
+        btnVerResposta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerRespostaActionPerformed(evt);
+            }
+        });
 
         btnVoltarTema.setBackground(new java.awt.Color(255, 255, 255));
         btnVoltarTema.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
@@ -54,47 +71,41 @@ public class Praticar extends javax.swing.JFrame {
             }
         });
 
-        btnAnterior.setBackground(new java.awt.Color(255, 255, 255));
-        btnAnterior.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 14)); // NOI18N
-        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/previous.png"))); // NOI18N
-        btnAnterior.setText("Anterior");
-
         jLabel1.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 18)); // NOI18N
         jLabel1.setText("Termo / Pergunta");
 
         jLabel2.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 18)); // NOI18N
         jLabel2.setText("Conceito / Resposta");
 
+        termos.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
+        termos.setMaximumSize(new java.awt.Dimension(100, 80));
+
+        resp.setMaximumSize(new java.awt.Dimension(100, 80));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnVoltarTema)
-                .addGap(119, 119, 119)
-                .addComponent(btnAnterior)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVerResposta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnProximo)
+                .addGap(144, 144, 144)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(166, 166, 166))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(btnVoltarTema, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(219, 219, 219)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnVerResposta, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                    .addComponent(btnProximo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(97, 97, 97))))
+                .addGap(78, 78, 78)
+                .addComponent(termos, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(resp, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,19 +116,19 @@ public class Praticar extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                    .addComponent(termos, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                    .addComponent(resp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(btnVoltarTema, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnVerResposta)
-                            .addComponent(btnAnterior)
-                            .addComponent(btnProximo))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addGap(15, 15, 15)
+                        .addComponent(btnVerResposta, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnVoltarTema, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -130,19 +141,41 @@ public class Praticar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarTemaActionPerformed
 
     private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
-        
+       resp.setText("");
+        praticando();
     }//GEN-LAST:event_btnProximoActionPerformed
 
+    private void btnVerRespostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerRespostaActionPerformed
+       resp.setText(resposta);
+    }//GEN-LAST:event_btnVerRespostaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnProximo;
     private javax.swing.JButton btnVerResposta;
     private javax.swing.JButton btnVoltarTema;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private java.awt.List listConceitoResposta;
-    private java.awt.List listTermoPergunta;
+    private java.awt.TextArea resp;
+    private java.awt.TextArea termos;
     // End of variables declaration//GEN-END:variables
+
+    private void praticando() {
+        if (jogando.isEmpty()) {
+            jogando = conteudos;
+        }
+        Random random = new Random();
+        int num = random.nextInt(jogando.size());
+        int contador = -1;
+        for (QC qc : jogando) {
+            contador++;
+            if (contador == num) {
+                termos.setText(qc.getTermoPergunta());
+                resposta = qc.getConceitoResposta();
+                jogando.remove(qc);
+                break;
+            }
+            
+        }
+
+    }
 }

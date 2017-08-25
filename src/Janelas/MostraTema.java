@@ -74,6 +74,11 @@ public class MostraTema extends javax.swing.JFrame {
         btnPraticar.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 18)); // NOI18N
         btnPraticar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/books.png"))); // NOI18N
         btnPraticar.setText("Praticar");
+        btnPraticar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPraticarActionPerformed(evt);
+            }
+        });
 
         lab.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 14)); // NOI18N
         lab.setText("Conteúdos Cadastrados:");
@@ -139,6 +144,12 @@ public class MostraTema extends javax.swing.JFrame {
             this.setVisible(false);
         }
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnPraticarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPraticarActionPerformed
+       Praticar praticar = new Praticar(tema.getCodTema());
+       praticar.setVisible(true);
+       this.setVisible(false);
+    }//GEN-LAST:event_btnPraticarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPraticar;
