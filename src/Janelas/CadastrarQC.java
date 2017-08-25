@@ -147,18 +147,20 @@ public class CadastrarQC extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (Util.validaString(conceitoResposta.getText()) || Util.validaString(termoPergunta.getText())) {
-            Util.mensagemErro("Algum campo não foi preenchido", "Preencha todos os campos!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("Algum campo não foi preenchido", "Preencha todos os campos!", JOptionPane.ERROR_MESSAGE);
         } else {
             int existe = 0;
             QC qc = new QC(termoPergunta.getText().trim(), conceitoResposta.getText().trim(), codTemaCadastro);
             QcDTO qcDTO = new QcDTO();
             existe = qcDTO.verificaQC(qc);
             if (existe == 1) {
-                qcDTO.salvaConteudo(qc);
+                if(qcDTO.salvaConteudo(qc)){
+                    Util.mensagem("Os dados foram salvos no Banco de Dados.", "Salvo com sucesso!", WIDTH);
+                }
                 mostraLista(qc);
             } else if (existe == 2) {
                 //já existe no BD
-                Util.mensagemErro("Esse conteúdo já foi cadastrado anteriormente.", "Conteúdo já existente!", JOptionPane.ERROR_MESSAGE);
+                Util.mensagem("Esse conteúdo já foi cadastrado anteriormente.", "Conteúdo já existente!", JOptionPane.ERROR_MESSAGE);
             }
             termoPergunta.setText("");
             conceitoResposta.setText("");
@@ -179,12 +181,10 @@ public class CadastrarQC extends javax.swing.JFrame {
     private void mostraLista(QC qc) {
         QcDTO qcDTO = new QcDTO();
         listQC.removeAll();
-        ArrayList<QC> qcS = qcDTO.retornaQCs(codTemaCadastro);
+        ArrayList<QC> qcS = qcDTO.retornaQCsTema(codTemaCadastro);
         if (qcS != null) {
             for (QC qcObj : qcS) {
                 listQC.add(qcObj.getTermoPergunta());
-                System.out.println("termo: " + qcObj.getTermoPergunta());
-                System.out.println("conceito : " + qcObj.getConceitoResposta());
             }
         }
     }

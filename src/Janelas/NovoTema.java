@@ -2,34 +2,42 @@ package Janelas;
 
 import ProgramaEstudos.QC;
 import ProgramaEstudos.Tema;
+import dto.QcDTO;
 import dto.TemaDTO;
 import dto.UsuarioDTO;
-import java.awt.Component;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import util.Util;
 
 public class NovoTema extends javax.swing.JFrame {
 
+    private int codigoTema;
+
     public NovoTema() {
         initComponents();
+        btnSalvarTema.setToolTipText("É necessário cadastrar  pelo menos dois conteúdos....");
         btnSalvarTema.setEnabled(false);
+        codigoTema = 0;
     }
 
     public NovoTema(int cod) {
         initComponents();
+        QcDTO qcDTO = new QcDTO();
+        if (qcDTO.retornaQCsTema(cod).size() >= 2) {
+            btnSalvarTema.setToolTipText("Salvar Tema...");
+            btnSalvarTema.setEnabled(true);
+        } else {
+            btnSalvarTema.setToolTipText("É necessário cadastrar  pelo menos dois conteúdos....");
+            btnSalvarTema.setEnabled(false);
+        }
         TemaDTO temaDTO = new TemaDTO();
         Tema tema = temaDTO.retornaTema(cod);
         acessoPrivado.setSelected(tema.isPrivado());
+        if (tema.getTituloTema().equals("#")) {
+            tema.setTituloTema("");
+        }
         tituloNovoTema.setText(tema.getTituloTema());
         materiaNovoTema.setSelectedIndex(retornaNumeroMateria(tema.getMateriaTema()));
-    }
-
-    NovoTema(Tema tema, ArrayList<QC> qcS) {
-        initComponents();
-        tituloNovoTema.setText(tema.getTituloTema());
-        acessoPrivado.setSelected(tema.isPrivado());
-        materiaNovoTema.setSelectedItem(tema.getMateriaTema());
+        this.codigoTema = cod;
     }
 
     @SuppressWarnings("unchecked")
@@ -178,60 +186,70 @@ public class NovoTema extends javax.swing.JFrame {
     private void btnNovoConceitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoConceitoActionPerformed
         CadastrarQC cadastrarQC;
         String titulo = tituloNovoTema.getText().trim();
-        if (!(materiaNovoTema.getSelectedItem().equals("<Selecione a Matéria>") && !Util.validaString(titulo))) {
+        UsuarioDTO useDTO = new UsuarioDTO();
+        Tema tema;
+        if (!(materiaNovoTema.getSelectedItem().equals("<Selecione a Matéria>") || Util.validaString(titulo))) {
             //se o usuário já tiver preenchido alguma coisa e quiser adicionar um novo conteúdo,
             //o que ele já cadastrou terá que ser salvo para que quando ele volte seus dados ainda "estejam la"
-            UsuarioDTO useDTO = new UsuarioDTO();
             //então seus dados serão salvos no BD e serão depois identificados com uma cerquilha no começo do nome da matéria
             //o nome da matéia possui uma lista de dados possíveis, assim se pode ter certeza que não haverá outro tema com a cerquilha
-            //objeto de tema é criado:
-            Tema tema = new Tema(titulo, acessoPrivado.isSelected(), ("#" + (String) materiaNovoTema.getSelectedItem()), 0, useDTO.retornaLogado());
-            TemaDTO temaDTO = new TemaDTO();
-            //pré-tema é salvo no BD:
-            if (temaDTO.salvaTema(tema)) {
-                tema.retornaCod();
-                System.out.println(tema.getCodTema());
-                cadastrarQC = new CadastrarQC(tema.getCodTema());
-                cadastrarQC.setVisible(true);
-                cadastrarQC.setVisible(true);
-                this.setVisible(false);
-            } else {
-                Util.mensagemErro("", "Opção inviável no momento!", JOptionPane.ERROR_MESSAGE);
-            }
+            //objeto de tema é criado: 
+            tema = new Tema(titulo, acessoPrivado.isSelected(), ("#" + (String) materiaNovoTema.getSelectedItem()), codigoTema, useDTO.retornaLogado());
         } else {
             //se o usuario não digitou nada ainda
             //salva um tema com valores que no futuro serão modificados
-            //para quando for salvar os conteúdos já existir um código e não dar erro no 
-            Tema tema = new Tema("#", false, "#", 0, "#");
-            TemaDTO temaDTO = new TemaDTO();
-            if (temaDTO.salvaTema(tema)) {
-                cadastrarQC = new CadastrarQC(tema.getCodTema());
-                cadastrarQC.setVisible(true);
-                cadastrarQC.setVisible(true);
-                this.setVisible(false);
-            } else {
-                Util.mensagemErro("", "Opção inviável no momento!", JOptionPane.ERROR_MESSAGE);
-            }
+            //para quando for salvar os conteúdos já existir um código e não dar erro na hora de inserir os conteúdos 
+            tema = new Tema("#", false, "#", 0, useDTO.retornaLogado());
+        }
+        TemaDTO temaDTO = new TemaDTO();
+        //pré-tema é salvo no BD:
+        boolean salvou;
+        if (codigoTema == 0) {
+            salvou = temaDTO.salvaTema(tema);
+        } else {
+            salvou = temaDTO.atualizaTema(tema);
+        }
+        if (salvou) {
+            tema.retornaCod();
+            cadastrarQC = new CadastrarQC(tema.getCodTema());
+            cadastrarQC.setVisible(true);
+            cadastrarQC.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_btnNovoConceitoActionPerformed
 
     private void btnSalvarTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTemaActionPerformed
-       
+        String titulo = tituloNovoTema.getText().trim();
+        String materia = (String) materiaNovoTema.getSelectedItem();
+        if (materia.equals("<Selecione a Matéria>") || Util.validaString(titulo)) {
+            Util.mensagem("Todos os campos devem ser preenchidos!", "Entrada inválida!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            UsuarioDTO uDTO = new UsuarioDTO();
+            TemaDTO tDTO = new TemaDTO();
+            Tema tema = new Tema(titulo, acessoPrivado.isSelected(), materia, codigoTema, uDTO.retornaLogado());
+            if (tDTO.atualizaTema(tema)) {
+                Util.mensagem("O novo tema foi salvo no BD.", "Salvo com sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                tituloNovoTema.setText("");
+                materiaNovoTema.setSelectedIndex(0);
+                acessoPrivado.setSelected(false);
+            }
+        }
     }//GEN-LAST:event_btnSalvarTemaActionPerformed
 
     private int retornaNumeroMateria(String materiaTema) {
         String[] materias = new String[13];
-        int numMat = 1;
+
+        int numMat = 0;
         materiaNovoTema.getItemAt(6);
-        for(int i = 0; i <= 12; i++){
+        for (int i = 0; i <= 12; i++) {
             materias[i] = materiaNovoTema.getItemAt(i);
         }
-        for(int i = 0; i <= materias.length - 1; i++){
-            if(materiaTema.replace("#", "").equals(materias[i])){
-                numMat = i + 1;
+        for (int i = 0; i <= materias.length - 1; i++) {
+            if (materiaTema.replace("#", "").equals(materias[i])) {
+                numMat = i;
             }
         }
-        return numMat -1;
+        return numMat;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

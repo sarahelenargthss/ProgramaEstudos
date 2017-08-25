@@ -27,12 +27,12 @@ public class QcDTO {
                 return 1;
             }
         } catch (SQLException e) {
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("Não foi possível verificar os dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return 3;
         }
     }
 
-    public void salvaConteudo(QC qc) {
+    public boolean salvaConteudo(QC qc) {
         try {
             PreparedStatement p = Util.retornaConexao("INSERT INTO QC VALUES (? , ?, ?);");
             p.setString(1, qc.getTermoPergunta());
@@ -40,11 +40,13 @@ public class QcDTO {
             p.setInt(3, qc.getCodTema());
             p.execute();
         } catch (SQLException e) {
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("Não foi possível salvar o conteúdo!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
+        return true;
     }
 
-    public ArrayList<QC> retornaQCs(int cod) {
+    public ArrayList<QC> retornaQCsTema(int cod) {
         ArrayList<QC> qcS = new ArrayList();
         try {
             PreparedStatement p = Util.retornaConexao("SELECT * FROM QC WHERE COD_TEMA = ?;");
@@ -59,7 +61,7 @@ public class QcDTO {
                 qcS.add(qc);
             }
         } catch (SQLException e) {
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return null;
         }
         return qcS;

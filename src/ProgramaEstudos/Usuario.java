@@ -39,11 +39,11 @@ public class Usuario {
             }
         } else if (aux == 2) {
             //se o usuário não for encontrado
-            Util.mensagemErro("Esse usuário ainda não está cadastrado!", "Usuário não cadastrado!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("Esse usuário ainda não está cadastrado!", "Usuário não cadastrado!", JOptionPane.ERROR_MESSAGE);
             return false;
 
         } else {
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -55,7 +55,7 @@ public class Usuario {
         int retorno = verificaUsuario();
         if (retorno == 1) {
             verifica = false;
-            Util.mensagemErro("Já existe um usuário com esse nome!", "Usuário já existente!", JOptionPane.INFORMATION_MESSAGE);
+            Util.mensagem("Já existe um usuário com esse nome!", "Usuário já existente!", JOptionPane.INFORMATION_MESSAGE);
         } else if (retorno == 2) {
             verifica = dtoUsuario.salvaUsuario(this);
         }

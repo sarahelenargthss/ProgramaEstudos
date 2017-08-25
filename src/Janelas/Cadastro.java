@@ -152,14 +152,14 @@ public class Cadastro extends javax.swing.JFrame {
             nomeUsuario.setText("");
             senhaUsuario.setText("");
             confirmaSenha.setText("");
-            Util.mensagemErro("O nome de usuário informado é inválido!", "Nome de usuário inválido!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("O nome de usuário informado é inválido!", "Nome de usuário inválido!", JOptionPane.ERROR_MESSAGE);
         } else {
             senhaUsuario.setText("");
             confirmaSenha.setText("");
             if (!senha.equals(senhaConfirm)) {
-                Util.mensagemErro("As senhas informadas não são correspondentes!", "Senha Inválida!", JOptionPane.ERROR_MESSAGE);
+                Util.mensagem("As senhas informadas não são correspondentes!", "Senha Inválida!", JOptionPane.ERROR_MESSAGE);
             } else if (Util.validaString(senha)) {
-                Util.mensagemErro("A senha informada é inválida!", "Senha inválida!", JOptionPane.ERROR_MESSAGE);
+                Util.mensagem("A senha informada é inválida!", "Senha inválida!", JOptionPane.ERROR_MESSAGE);
             } else {
                 Usuario usuario = new Usuario(nome, senha);
                 if (usuario.cadastraUsuario()) {

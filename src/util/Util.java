@@ -19,7 +19,7 @@ public class Util {
         return JOptionPane.showConfirmDialog(null, mensagem, titulo, JOptionPane.YES_NO_OPTION);
     }
     
-    public static void mensagemErro(String mensagem, String titulo, int tipo) {
+    public static void mensagem(String mensagem, String titulo, int tipo) {
         JOptionPane.showMessageDialog(null, mensagem, titulo, tipo);
     }
 
@@ -34,13 +34,13 @@ public class Util {
     }
 
     public static PreparedStatement retornaConexao(String sql) {
-        String str = "jdbc:mysql://localhost:3306/PROGRAMA_ESTUDOS?" + "user=root&password=alunoifc";
+        String str = "jdbc:mysql://localhost:3306/PE?" + "user=root&password=root";
         PreparedStatement p;
         try {
             Connection conn = (Connection) DriverManager.getConnection(str);
             p = conn.prepareStatement(sql);
         } catch (SQLException e) {
-            mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            mensagem("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return null;
         }
         return p;

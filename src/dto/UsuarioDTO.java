@@ -21,7 +21,7 @@ public class UsuarioDTO {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return 3;
         }
         if (nome.equals(nomUsuario)) {
@@ -43,7 +43,7 @@ public class UsuarioDTO {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return "";
         }
         return senha;
@@ -65,7 +65,7 @@ public class UsuarioDTO {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
@@ -78,7 +78,7 @@ public class UsuarioDTO {
             p.setString(2, nome);
             p.execute();
         }catch(SQLException e){
-            Util.mensagemErro("Não foi possível fazer a conexão com o BD!", "Erro no BD!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("Não foi possível fazer a conexão com o BD!", "Erro no BD!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
@@ -96,7 +96,7 @@ public class UsuarioDTO {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
-            Util.mensagemErro("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("Não foi possível fazer a conexão com o Banco de Dados!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return "";
         }
         if (nome.equals(null)) {

@@ -34,17 +34,7 @@ public class Principal {
     //por .trim() em tudo
     //perguntar se deseja sair quando ta cadastrando novo usuário/tema e clica em voltar
     
-    
-    
-    //TIRAR O NOME DOS MÉTODOS NAS MENSAGENS DE EERO COM BD
-    
-    
-    //arrumar retorna numMateria
-    //pensar na mensagenzinha no novotema quando ele quer adicionar conteúdo e deu pau na conexão com o BD
-    //
-    
-    //tirar as cerquilhas dps de salvar tema
-    
+   
     
     /////////AQUIIII
     //quando um tema estava sendo cadastrado e ele aperta em adicionar conteúdo,
