@@ -13,7 +13,8 @@ public class Perfil extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.anterior = anterior;
-        if(!anterior.equals("menu")){
+        UsuarioDTO useDTO = new UsuarioDTO();
+        if(!useDTO.retornaLogado().equals(usuario.toLowerCase())){
             btnDeslogar.setVisible(false);
         }
         String pLetra = String.valueOf(usuario.charAt(0));

@@ -207,7 +207,7 @@ public class Pesquisar extends javax.swing.JFrame {
         String nome = buscaTema.substring(buscaTema.indexOf("=") + 1, buscaTema.indexOf("]"));
         Perfil use = new Perfil(pesquisa.getText(), nome);
         use.setVisible(true);
-        use.setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_listUsuariosPesquisaMouseClicked
 
     public void mostraListas(String busca) {

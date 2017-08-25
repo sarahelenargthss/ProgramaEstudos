@@ -137,7 +137,7 @@ public class MostraTema extends javax.swing.JFrame {
             String[] ant = anterior.split("/");
             Perfil perfil = new Perfil(ant[0], tema.getNomeUsuario());
             perfil.setVisible(true);
-            perfil.setVisible(false);
+            this.setVisible(false);
         }else{
             Pesquisar pesquisar = new Pesquisar(anterior);
             pesquisar.setVisible(true);
@@ -146,7 +146,7 @@ public class MostraTema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnPraticarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPraticarActionPerformed
-       Praticar praticar = new Praticar(tema.getCodTema());
+       Praticar praticar = new Praticar(tema.getCodTema(), anterior);
        praticar.setVisible(true);
        this.setVisible(false);
     }//GEN-LAST:event_btnPraticarActionPerformed
