@@ -4,6 +4,7 @@ import ProgramaEstudos.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import util.Util;
 
@@ -104,5 +105,25 @@ public class UsuarioDTO {
         } else {
             return nome;
         }
+    }
+
+    public ArrayList<String> pesquisaTemas(String busca) {
+        ArrayList<String> usuarios = new ArrayList();
+        try {
+            PreparedStatement p = Util.retornaConexao("SELECT NOME_USUARIO FROM USUARIO WHERE lower(NOME_USUARIO) LIKE ?;");
+            UsuarioDTO uDTO = new UsuarioDTO();
+            p.setString(1, "%"+busca.toLowerCase()+"%");
+            ResultSet rs = p.executeQuery();
+            Usuario use;
+            while(rs.next()){
+                use = new Usuario();
+                use.setNome(rs.getString(1));
+                usuarios.add(use.getNome());
+            }
+        } catch (SQLException e) {
+            Util.mensagem("Não foi possível buscar os usuarios.", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        return usuarios;
     }
 }

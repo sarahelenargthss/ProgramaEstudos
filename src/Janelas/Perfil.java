@@ -7,12 +7,17 @@ import java.util.ArrayList;
 
 public class Perfil extends javax.swing.JFrame {
 
-    private int anterior;
-    
-    public Perfil(int anterior) {
+    private String anterior;
+
+    public Perfil(String anterior, String usuario) {
         initComponents();
-        this.anterior = anterior;
         this.setLocationRelativeTo(null);
+        this.anterior = anterior;
+        if(!anterior.equals("menu")){
+            btnDeslogar.setVisible(false);
+        }
+        String pLetra = String.valueOf(usuario.charAt(0));
+        labNomeUsuario.setText(usuario.replaceFirst(pLetra, pLetra.toUpperCase()));
         montaPerfil();
     }
 
@@ -99,29 +104,29 @@ public class Perfil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private void montaPerfil() {
-        UsuarioDTO useDTO = new UsuarioDTO();
-        String nome = useDTO.retornaLogado();
-        String pLetra = String.valueOf(nome.charAt(0));
-        labNomeUsuario.setText(nome.replaceFirst(pLetra, pLetra.toUpperCase()));
         //puxar temas e colocar na área de texto
         TemaDTO tDTO = new TemaDTO();
-        ArrayList<Tema> temas = tDTO.retornaTemas();
-        if(temas != null){
-            for(Tema t : temas){
-                listTemasUsuario.add(t.getTituloTema() + " (" + t.getMateriaTema() + ")");
+        listTemasUsuario.removeAll();
+        UsuarioDTO uDTO = new UsuarioDTO();
+        String logado = uDTO.retornaLogado();
+        ArrayList<Tema> temas = tDTO.retornaTemasUsuario();
+        if (temas != null) {
+            for (Tema t : temas) {
+                if (logado.equals(t.getNomeUsuario()) || !t.isPrivado()) {
+                    listTemasUsuario.add(t.getTituloTema() + " (" + t.getMateriaTema() + ")");
+                }
             }
         }
     }
-    
+
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        if(anterior == 1){
+        if (anterior.equals("menu")) {
             Menu menu = new Menu();
             menu.setVisible(true);
             this.setVisible(false);
-        }else{
-            Pesquisar pesquisar = new Pesquisar();
+        } else {
+            Pesquisar pesquisar = new Pesquisar(anterior);
             pesquisar.setVisible(true);
             this.setVisible(false);
         }
@@ -130,18 +135,18 @@ public class Perfil extends javax.swing.JFrame {
     private void btnDeslogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeslogarActionPerformed
         UsuarioDTO aux = new UsuarioDTO();
         String nomeLogado = aux.retornaLogado();
-        if(!nomeLogado.equals("")){
-            if(aux.loginLogout(nomeLogado, false)){
+        if (!nomeLogado.equals("")) {
+            if (aux.loginLogout(nomeLogado, false)) {
                 Menu menu = new Menu();
                 menu.setVisible(true);
                 this.setVisible(false);
             }
-            
+
         }
     }//GEN-LAST:event_btnDeslogarActionPerformed
 
     private void listTemasUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listTemasUsuarioActionPerformed
-     
+
     }//GEN-LAST:event_listTemasUsuarioActionPerformed
 
     private void listTemasUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listTemasUsuarioMouseClicked
@@ -149,11 +154,11 @@ public class Perfil extends javax.swing.JFrame {
         Tema tema = new Tema();
         tema.setTituloTema(buscaTema.substring(buscaTema.indexOf("=") + 1, buscaTema.indexOf(" (")));
         tema.setMateriaTema(buscaTema.substring(buscaTema.indexOf("(") + 1, buscaTema.indexOf(")")));
-        UsuarioDTO uDTO = new UsuarioDTO(); 
+        UsuarioDTO uDTO = new UsuarioDTO();
         tema.setNomeUsuario(uDTO.retornaLogado());
         TemaDTO tDTO = new TemaDTO();
-        tema = tDTO.retornaTema(tDTO.verificaTema(tema));  
-        MostraTema mTema = new MostraTema(tema);
+        tema = tDTO.retornaTema(tDTO.verificaTema(tema));
+        MostraTema mTema = new MostraTema(tema, (anterior + "/perfil"));
         mTema.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_listTemasUsuarioMouseClicked

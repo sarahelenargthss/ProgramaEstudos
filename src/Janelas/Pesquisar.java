@@ -1,10 +1,22 @@
 package Janelas;
 
+import ProgramaEstudos.Tema;
+import dto.TemaDTO;
+import dto.UsuarioDTO;
+import java.util.ArrayList;
+
 public class Pesquisar extends javax.swing.JFrame {
 
     public Pesquisar() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+
+    Pesquisar(String anterior) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        mostraListas(anterior);
+        pesquisa.setText(anterior);
     }
 
     @SuppressWarnings("unchecked")
@@ -18,8 +30,6 @@ public class Pesquisar extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         listTemasPesquisa = new java.awt.List();
-        jPanel2 = new javax.swing.JPanel();
-        listMateriasPesquisa = new java.awt.List();
         jPanel3 = new javax.swing.JPanel();
         listUsuariosPesquisa = new java.awt.List();
 
@@ -42,6 +52,11 @@ public class Pesquisar extends javax.swing.JFrame {
         btnPesquisar.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/search.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         btnVoltarMenu.setBackground(new java.awt.Color(255, 255, 255));
         btnVoltarMenu.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
@@ -57,6 +72,18 @@ public class Pesquisar extends javax.swing.JFrame {
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
 
+        listTemasPesquisa.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+        listTemasPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listTemasPesquisaMouseClicked(evt);
+            }
+        });
+        listTemasPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listTemasPesquisaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -70,30 +97,18 @@ public class Pesquisar extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(listTemasPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                .addComponent(listTemasPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Tema", jPanel1);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(listMateriasPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(listMateriasPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("Matéria", jPanel2);
+        listUsuariosPesquisa.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+        listUsuariosPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listUsuariosPesquisaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -108,7 +123,7 @@ public class Pesquisar extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(listUsuariosPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                .addComponent(listUsuariosPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -145,9 +160,9 @@ public class Pesquisar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(btnVoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -156,7 +171,7 @@ public class Pesquisar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
-       
+
     }//GEN-LAST:event_pesquisaActionPerformed
 
     private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
@@ -165,16 +180,73 @@ public class Pesquisar extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        String busca = pesquisa.getText().trim();
+        mostraListas(busca);
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void listTemasPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listTemasPesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listTemasPesquisaActionPerformed
+
+    private void listTemasPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listTemasPesquisaMouseClicked
+        String buscaTema = evt.getComponent().toString();
+        Tema tema = new Tema();
+        tema.setTituloTema(buscaTema.substring(buscaTema.indexOf("=") + 1, buscaTema.indexOf(" (")));
+        tema.setMateriaTema(buscaTema.substring(buscaTema.indexOf("(") + 1, buscaTema.indexOf(")")));
+        UsuarioDTO uDTO = new UsuarioDTO();
+        tema.setNomeUsuario(uDTO.retornaLogado());
+        TemaDTO tDTO = new TemaDTO();
+        tema = tDTO.retornaTema(tDTO.verificaTema(tema));
+        MostraTema mTema = new MostraTema(tema, (pesquisa.getText()));
+        mTema.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_listTemasPesquisaMouseClicked
+
+    private void listUsuariosPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listUsuariosPesquisaMouseClicked
+        String buscaTema = evt.getComponent().toString();
+        String nome = buscaTema.substring(buscaTema.indexOf("=") + 1, buscaTema.indexOf("]"));
+        Perfil use = new Perfil(pesquisa.getText(), nome);
+        use.setVisible(true);
+        use.setVisible(false);
+    }//GEN-LAST:event_listUsuariosPesquisaMouseClicked
+
+    public void mostraListas(String busca) {
+        if (!busca.equals("")) {
+            TemaDTO tDTO = new TemaDTO();
+            UsuarioDTO useDTO = new UsuarioDTO();
+            ArrayList<Tema> temas = tDTO.pesquisaTemas(busca);
+            listTemasPesquisa.removeAll();
+            UsuarioDTO uDTO = new UsuarioDTO();
+            String logado = uDTO.retornaLogado();
+            if (temas.size() > 0) {
+                for (Tema t : temas) {
+                    if(logado.equals(t.getNomeUsuario()) || !t.isPrivado()){
+                        listTemasPesquisa.add(t.getTituloTema() + " (" + t.getMateriaTema() + ")");
+                    }
+                }
+            } else {
+                listTemasPesquisa.add("Não foram encontrados resultados para '" + busca + "'");
+            }
+            listUsuariosPesquisa.removeAll();
+            ArrayList<String> usuarios = useDTO.pesquisaTemas(busca);
+            if (usuarios.size() > 0) {
+                for (String u : usuarios) {
+                    listUsuariosPesquisa.add(u);
+                }
+            } else {
+                listUsuariosPesquisa.add("Não foram encontrados resultados para '" + busca + "'");
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnVoltarMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private java.awt.List listMateriasPesquisa;
     private java.awt.List listTemasPesquisa;
     private java.awt.List listUsuariosPesquisa;
     private javax.swing.JTextField pesquisa;

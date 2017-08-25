@@ -141,7 +141,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
-        Perfil perfil = new Perfil(1);
+        Perfil perfil = new Perfil("menu", nomeLogado.getText());
         perfil.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnPerfilActionPerformed

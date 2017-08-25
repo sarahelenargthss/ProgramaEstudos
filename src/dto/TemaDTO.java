@@ -82,7 +82,7 @@ public class TemaDTO {
         return true;
     }
 
-    public ArrayList<Tema> retornaTemas() {
+    public ArrayList<Tema> retornaTemasUsuario() {
         ArrayList<Tema> temas = new ArrayList();
         try {
             PreparedStatement p = Util.retornaConexao("SELECT * FROM TEMA WHERE NOME_USUARIO = ?;");
@@ -100,7 +100,7 @@ public class TemaDTO {
                 temas.add(tema);
             }
         } catch (SQLException e) {
-            Util.mensagem("Não foi possível buscar seus temas.", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            Util.mensagem("Não foi possível buscar os temas.", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return null;
         }
         return temas;
@@ -122,10 +122,32 @@ public class TemaDTO {
             Util.mensagem("Não foi possível concluir a ação.", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
             return -8;
         }
-        if(cod != 0){
-            Util.mensagem("Esse tema já foi cadastrado em sua conta.", "Tema já cadastrado!", JOptionPane.ERROR_MESSAGE);
-        }
         return cod;
+    }
+
+    public ArrayList<Tema> pesquisaTemas(String busca) {
+        ArrayList<Tema> temas = new ArrayList();
+        try {
+            PreparedStatement p = Util.retornaConexao("SELECT * FROM TEMA WHERE lower(TITULO_TEMA) LIKE ? OR lower(MATERIA_TEMA) LIKE ?;");
+            UsuarioDTO uDTO = new UsuarioDTO();
+            p.setString(1,  "%"+busca.toLowerCase()+"%");
+            p.setString(2,  "%"+busca.toLowerCase()+"%");
+            ResultSet rs = p.executeQuery();
+            Tema tema;
+            while(rs.next()){
+                tema = new Tema();
+                tema.setCodTema(rs.getInt(1));
+                tema.setTituloTema(rs.getString(2));
+                tema.setMateriaTema(rs.getString(3));
+                tema.setPrivado(rs.getBoolean(4));
+                tema.setNomeUsuario(rs.getString(5));
+                temas.add(tema);
+            }
+        } catch (SQLException e) {
+            Util.mensagem("Não foi possível buscar os temas.", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        return temas;
     }
     
     

@@ -83,6 +83,7 @@ public class CadastrarQC extends javax.swing.JFrame {
             }
         });
 
+        listQC.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
         listQC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listQCActionPerformed(evt);

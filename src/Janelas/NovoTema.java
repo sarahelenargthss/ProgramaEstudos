@@ -72,7 +72,7 @@ public class NovoTema extends javax.swing.JFrame {
         jLabel3.setText("Título do Tema");
 
         tituloNovoTema.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
-        tituloNovoTema.setToolTipText("Digite o título do tema");
+        tituloNovoTema.setToolTipText("Título do tema (30 caracteres)");
         tituloNovoTema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tituloNovoTemaActionPerformed(evt);
@@ -132,9 +132,9 @@ public class NovoTema extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(acessoPrivado))
-                        .addComponent(materiaNovoTema, 0, 289, Short.MAX_VALUE))
+                        .addComponent(materiaNovoTema, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnVoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnSalvarTema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNovoConceito, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
@@ -220,22 +220,28 @@ public class NovoTema extends javax.swing.JFrame {
         }
         TemaDTO temaDTO = new TemaDTO();
         //pré-tema é salvo no BD:
-        if (temaDTO.verificaTema(tema) == 0) {
-            tema.setMateriaTema("#" + tema.getMateriaTema());
-            boolean salvou;
-            if (codigoTema == 0) {
-                salvou = temaDTO.salvaTema(tema);
+        if (tema.getTituloTema().length() <= 30) {
+            if (temaDTO.verificaTema(tema) == 0) {
+                tema.setMateriaTema("#" + tema.getMateriaTema());
+                boolean salvou;
+                if (codigoTema == 0) {
+                    salvou = temaDTO.salvaTema(tema);
+                } else {
+                    salvou = temaDTO.atualizaTema(tema);
+                }
+                if (salvou) {
+                    tema.retornaCod();
+                    cadastrarQC = new CadastrarQC(tema.getCodTema());
+                    cadastrarQC.setVisible(true);
+                    cadastrarQC.setVisible(true);
+                    this.setVisible(false);
+                }
             } else {
-                salvou = temaDTO.atualizaTema(tema);
+                Util.mensagem("Esse tema já foi cadastrado em sua conta.", "Tema já cadastrado!", JOptionPane.ERROR_MESSAGE);
             }
-            if (salvou) {
-                tema.retornaCod();
-                cadastrarQC = new CadastrarQC(tema.getCodTema());
-                cadastrarQC.setVisible(true);
-                cadastrarQC.setVisible(true);
-                this.setVisible(false);
-            }
-        } 
+        } else {
+            Util.mensagem("O título não pode ter mais de 30 caracteres.", "Título inválido!", JOptionPane.INFORMATION_MESSAGE);
+        }
 
     }//GEN-LAST:event_btnNovoConceitoActionPerformed
 

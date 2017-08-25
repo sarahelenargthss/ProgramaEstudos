@@ -14,6 +14,10 @@ public class Usuario {
         this.senha = senha;
     }
 
+    public Usuario() {
+        
+    }
+
     public boolean verificaLogin() {
         //verificar se o usuário está cadastrado
         int aux = verificaUsuario();
