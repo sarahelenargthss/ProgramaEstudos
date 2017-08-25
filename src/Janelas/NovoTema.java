@@ -1,6 +1,5 @@
 package Janelas;
 
-import ProgramaEstudos.QC;
 import ProgramaEstudos.Tema;
 import dto.QcDTO;
 import dto.TemaDTO;
@@ -14,6 +13,7 @@ public class NovoTema extends javax.swing.JFrame {
 
     public NovoTema() {
         initComponents();
+        this.setLocationRelativeTo(null);
         btnSalvarTema.setToolTipText("É necessário cadastrar  pelo menos dois conteúdos....");
         btnSalvarTema.setEnabled(false);
         codigoTema = 0;
@@ -21,12 +21,13 @@ public class NovoTema extends javax.swing.JFrame {
 
     public NovoTema(int cod) {
         initComponents();
+        this.setLocationRelativeTo(null);
         QcDTO qcDTO = new QcDTO();
-        if (qcDTO.retornaQCsTema(cod).size() >= 2) {
+        if (qcDTO.retornaQCsTema(cod).size() >= 1) {
             btnSalvarTema.setToolTipText("Salvar Tema...");
             btnSalvarTema.setEnabled(true);
         } else {
-            btnSalvarTema.setToolTipText("É necessário cadastrar  pelo menos dois conteúdos....");
+            btnSalvarTema.setToolTipText("É necessário cadastrar  pelo menos um conteúdo....");
             btnSalvarTema.setEnabled(false);
         }
         TemaDTO temaDTO = new TemaDTO();
@@ -177,9 +178,26 @@ public class NovoTema extends javax.swing.JFrame {
     }//GEN-LAST:event_tituloNovoTemaActionPerformed
 
     private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
-        Menu menu = new Menu();
-        menu.setVisible(true);
-        this.setVisible(false);
+        boolean salvouExcluiu = true;
+        if (materiaNovoTema.getSelectedIndex() != 0 || !Util.validaString(tituloNovoTema.getText().trim())) {
+            if (Util.mensagemOpcao("Deseja salvar esse tema antes de sair?", "Salvar tema?") == 0) {
+                QcDTO qcDTO = new QcDTO();
+                if (qcDTO.retornaQCsTema(codigoTema).size() != 0) {
+                    salvarTema();
+                } else {
+                    Util.mensagem("Você precisa cadastrar pelo menos um conteúdo.", "Ação inválida!", JOptionPane.ERROR_MESSAGE);
+                    salvouExcluiu = false;
+                }
+            } else if (codigoTema != 0) {
+                TemaDTO tDTO = new TemaDTO();
+                tDTO.excluiTema(codigoTema);
+            }
+        }
+        if (salvouExcluiu) {
+            Menu menu = new Menu();
+            menu.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
 
@@ -219,6 +237,10 @@ public class NovoTema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoConceitoActionPerformed
 
     private void btnSalvarTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTemaActionPerformed
+        salvarTema();
+    }//GEN-LAST:event_btnSalvarTemaActionPerformed
+
+    private void salvarTema() {
         String titulo = tituloNovoTema.getText().trim();
         String materia = (String) materiaNovoTema.getSelectedItem();
         if (materia.equals("<Selecione a Matéria>") || Util.validaString(titulo)) {
@@ -234,7 +256,10 @@ public class NovoTema extends javax.swing.JFrame {
                 acessoPrivado.setSelected(false);
             }
         }
-    }//GEN-LAST:event_btnSalvarTemaActionPerformed
+        codigoTema = 0;
+        btnSalvarTema.setToolTipText("É necessário cadastrar  pelo menos um conteúdo....");
+        btnSalvarTema.setEnabled(false);
+    }
 
     private int retornaNumeroMateria(String materiaTema) {
         String[] materias = new String[13];

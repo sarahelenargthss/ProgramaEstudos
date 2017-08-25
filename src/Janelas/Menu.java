@@ -6,6 +6,7 @@ public class Menu extends javax.swing.JFrame {
 
     public Menu() {
         initComponents();
+        this.setLocationRelativeTo(null);
         UsuarioDTO useDTO = new UsuarioDTO();
         String nome = useDTO.retornaLogado();
         nomeLogado.setText(nome);
@@ -19,6 +20,7 @@ public class Menu extends javax.swing.JFrame {
 
     Menu(String nome) {
         initComponents();
+        this.setLocationRelativeTo(null);
         nomeLogado.setText(nome);
         btnLogin.setEnabled(false);
     }
@@ -36,7 +38,6 @@ public class Menu extends javax.swing.JFrame {
         nomeLogado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(795, 495));
 
         btnPerfil.setBackground(new java.awt.Color(255, 255, 255));
         btnPerfil.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 24)); // NOI18N
@@ -137,7 +138,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
-        Perfil perfil = new Perfil();
+        Perfil perfil = new Perfil(1);
         perfil.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnPerfilActionPerformed

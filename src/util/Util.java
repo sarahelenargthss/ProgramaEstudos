@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 public class Util {
 
     public static boolean validaString(String text) {
-        if (text.equals("")) {
+        if (text.trim().equals("")) {
             return true;
         }
         return false;
@@ -34,7 +34,7 @@ public class Util {
     }
 
     public static PreparedStatement retornaConexao(String sql) {
-        String str = "jdbc:mysql://localhost:3306/PE?" + "user=root&password=root";
+        String str = "jdbc:mysql://localhost:3306/PE?" + "user=root&password=alunoifc";
         PreparedStatement p;
         try {
             Connection conn = (Connection) DriverManager.getConnection(str);

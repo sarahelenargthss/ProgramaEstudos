@@ -67,4 +67,16 @@ public class QcDTO {
         return qcS;
     }
 
+    public boolean excluiQCs(int cod) {
+        try {
+            PreparedStatement p = Util.retornaConexao("DELETE FROM QC WHERE COD_TEMA = ?");
+            p.setInt(1, cod);
+            p.execute();
+        } catch (SQLException e) {
+            Util.mensagem("Não foi possível salvar o conteúdo!", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
 }

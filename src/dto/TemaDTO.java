@@ -4,6 +4,7 @@ import ProgramaEstudos.Tema;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import util.Util;
 
@@ -26,11 +27,13 @@ public class TemaDTO {
 
     public Tema retornaTema(int cod) {
         Tema tema = new Tema();
+        UsuarioDTO uDTO = new UsuarioDTO();
         PreparedStatement p;
         try {
             if (cod == 0) {
-                p = Util.retornaConexao("SELECT * FROM TEMA WHERE MATERIA_TEMA LIKE ?");
+                p = Util.retornaConexao("SELECT * FROM TEMA WHERE MATERIA_TEMA LIKE ? AND NOME_USUARIO = ?");
                 p.setString(1, "#%");
+                p.setString(2, uDTO.retornaLogado());
             } else {
                 p = Util.retornaConexao("SELECT * FROM TEMA WHERE COD_TEMA = ?");
                 p.setInt(1, cod);
@@ -64,6 +67,46 @@ public class TemaDTO {
         }
         return true;
     }
+
+    public boolean excluiTema(int codigoTema) {
+        QcDTO qcDTO = new QcDTO();
+        qcDTO.excluiQCs(codigoTema);
+        try {
+            PreparedStatement p = Util.retornaConexao("DELETE FROM TEMA WHERE COD_TEMA = ?");
+            p.setInt(1, codigoTema);
+            p.execute();
+        } catch (SQLException e) {
+            Util.mensagem("Erro de Conexão com o Banco de Dados.", "Não foi possível concluir a ação!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<Tema> retornaTemas() {
+        ArrayList<Tema> temas = new ArrayList();
+        try {
+            PreparedStatement p = Util.retornaConexao("SELECT * FROM TEMA WHERE NOME_USUARIO = ?;");
+            UsuarioDTO uDTO = new UsuarioDTO();
+            p.setString(1, uDTO.retornaLogado());
+            ResultSet rs = p.executeQuery();
+            Tema tema;
+            while(rs.next()){
+                tema = new Tema();
+                tema.setCodTema(rs.getInt(1));
+                tema.setTituloTema(rs.getString(2));
+                tema.setMateriaTema(rs.getString(3));
+                tema.setPrivado(rs.getBoolean(4));
+                tema.setNomeUsuario(rs.getString(5));
+                temas.add(tema);
+            }
+        } catch (SQLException e) {
+            Util.mensagem("Não foi possível buscar seus temas.", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        return temas;
+    }
+    
+    
 
     
 

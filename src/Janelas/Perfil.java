@@ -1,11 +1,18 @@
 package Janelas;
 
+import ProgramaEstudos.Tema;
+import dto.TemaDTO;
 import dto.UsuarioDTO;
+import java.util.ArrayList;
 
 public class Perfil extends javax.swing.JFrame {
 
-    public Perfil() {
+    private int anterior;
+    
+    public Perfil(int anterior) {
         initComponents();
+        this.anterior = anterior;
+        this.setLocationRelativeTo(null);
         montaPerfil();
     }
 
@@ -13,14 +20,12 @@ public class Perfil extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        list1 = new java.awt.List();
         labNomeUsuario = new javax.swing.JLabel();
         btnVoltar = new javax.swing.JButton();
         listTemasUsuario = new java.awt.List();
         btnDeslogar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(795, 495));
 
         labNomeUsuario.setBackground(new java.awt.Color(255, 255, 255));
         labNomeUsuario.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 24)); // NOI18N
@@ -33,6 +38,12 @@ public class Perfil extends javax.swing.JFrame {
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
+            }
+        });
+
+        listTemasUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listTemasUsuarioActionPerformed(evt);
             }
         });
 
@@ -85,13 +96,28 @@ public class Perfil extends javax.swing.JFrame {
     private void montaPerfil() {
         UsuarioDTO useDTO = new UsuarioDTO();
         String nome = useDTO.retornaLogado();
-        
-        labNomeUsuario.setText(nome);
+        String pLetra = String.valueOf(nome.charAt(0));
+        labNomeUsuario.setText(nome.replaceFirst(pLetra, pLetra.toUpperCase()));
         //puxar temas e colocar na área de texto
+        TemaDTO tDTO = new TemaDTO();
+        ArrayList<Tema> temas = tDTO.retornaTemas();
+        if(temas != null){
+            for(Tema t : temas){
+                listTemasUsuario.add(t.getTituloTema() + " (" + t.getMateriaTema() + ")");
+            }
+        }
     }
     
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        
+        if(anterior == 1){
+            Menu menu = new Menu();
+            menu.setVisible(true);
+            this.setVisible(false);
+        }else{
+            Pesquisar pesquisar = new Pesquisar();
+            pesquisar.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnDeslogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeslogarActionPerformed
@@ -107,12 +133,15 @@ public class Perfil extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeslogarActionPerformed
 
+    private void listTemasUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listTemasUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listTemasUsuarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeslogar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel labNomeUsuario;
-    private java.awt.List list1;
     private java.awt.List listTemasUsuario;
     // End of variables declaration//GEN-END:variables
 

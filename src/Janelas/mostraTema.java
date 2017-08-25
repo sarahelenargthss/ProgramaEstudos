@@ -4,6 +4,7 @@ public class mostraTema extends javax.swing.JFrame {
 
     public mostraTema() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     
     
