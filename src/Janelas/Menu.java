@@ -9,19 +9,22 @@ public class Menu extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         UsuarioDTO useDTO = new UsuarioDTO();
         String nome = useDTO.retornaLogado();
-        nomeLogado.setText(nome);
         if (!nome.equals("")) {
             btnLogin.setEnabled(false);
-        }else{
+            String pLetra = String.valueOf(nome.charAt(0));
+            nomeLogado.setText(nome.replaceFirst(pLetra, pLetra.toUpperCase()));
+        } else {
             btnPerfil.setEnabled(false);
             btnCadastrarTema.setEnabled(false);
+            nomeLogado.setText("");
         }
     }
 
     Menu(String nome) {
         initComponents();
         this.setLocationRelativeTo(null);
-        nomeLogado.setText(nome);
+        String pLetra = String.valueOf(nome.charAt(0));
+        nomeLogado.setText(nome.replaceFirst(pLetra, pLetra.toUpperCase()));
         btnLogin.setEnabled(false);
     }
 

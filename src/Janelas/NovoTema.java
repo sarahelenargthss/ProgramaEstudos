@@ -60,6 +60,7 @@ public class NovoTema extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 48)); // NOI18N
         jLabel1.setText("Novo Tema");
 
+        materiaNovoTema.setBackground(new java.awt.Color(254, 254, 254));
         materiaNovoTema.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 18)); // NOI18N
         materiaNovoTema.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione a Matéria>", "Matemática", "Biologia", "Geografia", "História", "Física", "Sociologia", "Química", "Português", "Literatura", "Espanhol", "Inglês", "Filosofia" }));
         materiaNovoTema.setToolTipText("Selecione a matéria");
@@ -78,12 +79,11 @@ public class NovoTema extends javax.swing.JFrame {
             }
         });
 
-        acessoPrivado.setBackground(new java.awt.Color(255, 255, 255));
         acessoPrivado.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         acessoPrivado.setText("Privado");
         acessoPrivado.setToolTipText("Padrão público, selecione para torná-lo privado");
 
-        btnNovoConceito.setBackground(new java.awt.Color(255, 255, 255));
+        btnNovoConceito.setBackground(new java.awt.Color(254, 254, 254));
         btnNovoConceito.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         btnNovoConceito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/add.png"))); // NOI18N
         btnNovoConceito.setText("Adicionar Conteúdo");
@@ -93,17 +93,17 @@ public class NovoTema extends javax.swing.JFrame {
             }
         });
 
-        btnSalvarTema.setBackground(new java.awt.Color(255, 255, 255));
+        btnSalvarTema.setBackground(new java.awt.Color(254, 254, 254));
         btnSalvarTema.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         btnSalvarTema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/save.png"))); // NOI18N
-        btnSalvarTema.setText("Salvar");
+        btnSalvarTema.setText("Salvar Tema");
         btnSalvarTema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarTemaActionPerformed(evt);
             }
         });
 
-        btnVoltarMenu.setBackground(new java.awt.Color(255, 255, 255));
+        btnVoltarMenu.setBackground(new java.awt.Color(254, 254, 254));
         btnVoltarMenu.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         btnVoltarMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/house (1).png"))); // NOI18N
         btnVoltarMenu.setText("Voltar");
@@ -124,22 +124,20 @@ public class NovoTema extends javax.swing.JFrame {
                 .addGap(235, 235, 235))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(97, 97, 97)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnVoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSalvarTema, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tituloNovoTema)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(acessoPrivado))
-                            .addComponent(materiaNovoTema, 0, 289, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
-                        .addComponent(btnNovoConceito, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tituloNovoTema)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(acessoPrivado))
+                        .addComponent(materiaNovoTema, 0, 289, Short.MAX_VALUE))
+                    .addComponent(btnVoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnSalvarTema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNovoConceito, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
                 .addGap(63, 63, 63))
         );
         layout.setVerticalGroup(
@@ -165,8 +163,8 @@ public class NovoTema extends javax.swing.JFrame {
                 .addComponent(tituloNovoTema, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvarTema, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnVoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvarTema, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
         );
 
@@ -202,38 +200,43 @@ public class NovoTema extends javax.swing.JFrame {
 
 
     private void btnNovoConceitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoConceitoActionPerformed
-        CadastrarQC cadastrarQC;
         String titulo = tituloNovoTema.getText().trim();
+        String materia = (String) materiaNovoTema.getSelectedItem();
+        CadastrarQC cadastrarQC;
         UsuarioDTO useDTO = new UsuarioDTO();
         Tema tema;
-        if (!(materiaNovoTema.getSelectedItem().equals("<Selecione a Matéria>") || Util.validaString(titulo))) {
+        if (!(materia.equals("<Selecione a Matéria>") || Util.validaString(titulo))) {
             //se o usuário já tiver preenchido alguma coisa e quiser adicionar um novo conteúdo,
             //o que ele já cadastrou terá que ser salvo para que quando ele volte seus dados ainda "estejam la"
             //então seus dados serão salvos no BD e serão depois identificados com uma cerquilha no começo do nome da matéria
             //o nome da matéia possui uma lista de dados possíveis, assim se pode ter certeza que não haverá outro tema com a cerquilha
             //objeto de tema é criado: 
-            tema = new Tema(titulo, acessoPrivado.isSelected(), ("#" + (String) materiaNovoTema.getSelectedItem()), codigoTema, useDTO.retornaLogado());
+            tema = new Tema(titulo, acessoPrivado.isSelected(), materia, codigoTema, useDTO.retornaLogado());
         } else {
             //se o usuario não digitou nada ainda
             //salva um tema com valores que no futuro serão modificados
             //para quando for salvar os conteúdos já existir um código e não dar erro na hora de inserir os conteúdos 
-            tema = new Tema("#", false, "#", 0, useDTO.retornaLogado());
+            tema = new Tema("#", false, "", 0, useDTO.retornaLogado());
         }
         TemaDTO temaDTO = new TemaDTO();
         //pré-tema é salvo no BD:
-        boolean salvou;
-        if (codigoTema == 0) {
-            salvou = temaDTO.salvaTema(tema);
-        } else {
-            salvou = temaDTO.atualizaTema(tema);
-        }
-        if (salvou) {
-            tema.retornaCod();
-            cadastrarQC = new CadastrarQC(tema.getCodTema());
-            cadastrarQC.setVisible(true);
-            cadastrarQC.setVisible(true);
-            this.setVisible(false);
-        }
+        if (temaDTO.verificaTema(tema) == 0) {
+            tema.setMateriaTema("#" + tema.getMateriaTema());
+            boolean salvou;
+            if (codigoTema == 0) {
+                salvou = temaDTO.salvaTema(tema);
+            } else {
+                salvou = temaDTO.atualizaTema(tema);
+            }
+            if (salvou) {
+                tema.retornaCod();
+                cadastrarQC = new CadastrarQC(tema.getCodTema());
+                cadastrarQC.setVisible(true);
+                cadastrarQC.setVisible(true);
+                this.setVisible(false);
+            }
+        } 
+
     }//GEN-LAST:event_btnNovoConceitoActionPerformed
 
     private void btnSalvarTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTemaActionPerformed

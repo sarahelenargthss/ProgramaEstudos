@@ -41,6 +41,13 @@ public class Perfil extends javax.swing.JFrame {
             }
         });
 
+        listTemasUsuario.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
+        listTemasUsuario.setMaximumSize(new java.awt.Dimension(40, 80));
+        listTemasUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listTemasUsuarioMouseClicked(evt);
+            }
+        });
         listTemasUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listTemasUsuarioActionPerformed(evt);
@@ -134,8 +141,22 @@ public class Perfil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeslogarActionPerformed
 
     private void listTemasUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listTemasUsuarioActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_listTemasUsuarioActionPerformed
+
+    private void listTemasUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listTemasUsuarioMouseClicked
+        String buscaTema = evt.getComponent().toString();
+        Tema tema = new Tema();
+        tema.setTituloTema(buscaTema.substring(buscaTema.indexOf("=") + 1, buscaTema.indexOf(" (")));
+        tema.setMateriaTema(buscaTema.substring(buscaTema.indexOf("(") + 1, buscaTema.indexOf(")")));
+        UsuarioDTO uDTO = new UsuarioDTO(); 
+        tema.setNomeUsuario(uDTO.retornaLogado());
+        TemaDTO tDTO = new TemaDTO();
+        tema = tDTO.retornaTema(tDTO.verificaTema(tema));  
+        MostraTema mTema = new MostraTema(tema);
+        mTema.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_listTemasUsuarioMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

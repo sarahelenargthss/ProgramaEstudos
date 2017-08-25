@@ -105,6 +105,28 @@ public class TemaDTO {
         }
         return temas;
     }
+
+    public int verificaTema(Tema tema) {
+        int cod = 0;
+            try {
+            PreparedStatement p = Util.retornaConexao("SELECT COD_TEMA FROM TEMA WHERE NOME_USUARIO = ? AND TITULO_TEMA = ? AND MATERIA_TEMA = ?;");
+            UsuarioDTO uDTO = new UsuarioDTO();
+            p.setString(1, uDTO.retornaLogado());
+            p.setString(2, tema.getTituloTema());
+            p.setString(3, tema.getMateriaTema());
+            ResultSet rs = p.executeQuery();
+            if(rs.next()){
+                cod = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            Util.mensagem("Não foi possível concluir a ação.", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
+            return -8;
+        }
+        if(cod != 0){
+            Util.mensagem("Esse tema já foi cadastrado em sua conta.", "Tema já cadastrado!", JOptionPane.ERROR_MESSAGE);
+        }
+        return cod;
+    }
     
     
 
