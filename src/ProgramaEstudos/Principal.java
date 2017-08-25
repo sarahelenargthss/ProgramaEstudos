@@ -34,7 +34,7 @@ public class Principal {
     //por .trim() em tudo
     //perguntar se deseja sair quando ta cadastrando novo usuário/tema e clica em voltar
     
-   
+   //castro tema prontoooooooooo
     
     /////////AQUIIII
     //quando um tema estava sendo cadastrado e ele aperta em adicionar conteúdo,
