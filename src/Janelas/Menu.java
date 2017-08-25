@@ -1,3 +1,7 @@
+//Brenna Corine Struck 
+//Nathalia Fernanda Tiedt
+//Sara Helena Régis Theiss
+//Turma 302
 package Janelas;
 
 import dto.UsuarioDTO;
