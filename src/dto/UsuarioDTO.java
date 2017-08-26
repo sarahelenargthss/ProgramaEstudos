@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import util.Util;
 
 public class UsuarioDTO {
+//trabalha com os usuarios, os relacionando ao BD
 
     public int verificaUsuario(String nome) {
         String nomUsuario = "";

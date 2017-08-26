@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 public class Util {
 
     public static boolean validaString(String text) {
+        //método que retorna true quando as Strings são vazias
         if (text.trim().equals("")) {
             return true;
         }
@@ -16,10 +17,12 @@ public class Util {
     }
 
     public static int mensagemOpcao(String mensagem, String titulo) {
+        //mostra uma mensagem de opção, que possui retorno
         return JOptionPane.showConfirmDialog(null, mensagem, titulo, JOptionPane.YES_NO_OPTION);
     }
-    
+
     public static void mensagem(String mensagem, String titulo, int tipo) {
+        //mostra uma mensagem do tipo que foi passado por parâmetro, sem retorno
         JOptionPane.showMessageDialog(null, mensagem, titulo, tipo);
     }
 
@@ -34,6 +37,7 @@ public class Util {
     }
 
     public static PreparedStatement retornaConexao(String sql) {
+        //retorna a coneão com o BD
         String str = "jdbc:mysql://localhost:3306/PE?" + "user=root&password=root";
         PreparedStatement p;
         try {

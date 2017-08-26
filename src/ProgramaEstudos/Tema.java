@@ -3,12 +3,14 @@ package ProgramaEstudos;
 import dto.TemaDTO;
 
 public class Tema {
+
     private String tituloTema;
     private boolean privado;
     private String materiaTema;
     private int codTema;
     private String nomeUsuario;
 
+//armazena e manipula dados dos temas
     public Tema(String titulo, boolean privado, String materia, int codigo, String usuarioLogado) {
         this.tituloTema = titulo;
         this.privado = privado;
@@ -18,7 +20,7 @@ public class Tema {
     }
 
     public Tema() {
-        
+
     }
 
     public String getTituloTema() {

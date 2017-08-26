@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import util.Util;
 
 public class CadastrarQC extends javax.swing.JFrame {
+//faz o cadastro de novos conteudos para determinado tema
 
     public CadastrarQC() {
         initComponents();
@@ -157,28 +158,33 @@ public class CadastrarQC extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (Util.validaString(conceitoResposta.getText()) || Util.validaString(termoPergunta.getText())) {
+            //valida para que todos os campos sejam preenchidos
             Util.mensagem("Algum campo não foi preenchido", "Preencha todos os campos!", JOptionPane.ERROR_MESSAGE);
         } else {
             int existe = 0;
             QC qc = new QC(termoPergunta.getText().trim(), conceitoResposta.getText().trim(), codTemaCadastro);
             QcDTO qcDTO = new QcDTO();
+            //verifica se o conteudo foi cadastrado anteriormente nesse mesmo tema
             existe = qcDTO.verificaQC(qc);
             if (existe == 1) {
-                if(qcDTO.salvaConteudo(qc)){
+                //se ainda não há cdastrado o salva no BD
+                if (qcDTO.salvaConteudo(qc)) {
                     Util.mensagem("Os dados foram salvos no Banco de Dados.", "Salvo com sucesso!", WIDTH);
                 }
+                //chama metodo mostraLista()
                 mostraLista(qc);
             } else if (existe == 2) {
-                //já existe no BD
+                //quando já existe no BD, mostra-se uma mensagem de erro
                 Util.mensagem("Esse conteúdo já foi cadastrado anteriormente.", "Conteúdo já existente!", JOptionPane.ERROR_MESSAGE);
             }
+            //ao fim, os campos são limpos
             termoPergunta.setText("");
             conceitoResposta.setText("");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnVoltarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroActionPerformed
-
+//botão voltar orienta ao novo tema onde se tem o cadastro do tema a qual os conteudos pertencem
         NovoTema novoTema = new NovoTema(codTemaCadastro);
         novoTema.setVisible(true);
         this.setVisible(false);
@@ -189,6 +195,7 @@ public class CadastrarQC extends javax.swing.JFrame {
     }//GEN-LAST:event_listQCActionPerformed
 
     private void mostraLista(QC qc) {
+        //método mostraLista() mostra a lista de conteudos cadastrados para aquele determinado tema
         QcDTO qcDTO = new QcDTO();
         listQC.removeAll();
         ArrayList<QC> qcS = qcDTO.retornaQCsTema(codTemaCadastro);

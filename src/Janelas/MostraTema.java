@@ -11,21 +11,23 @@ public class MostraTema extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-    
+
     private Tema tema;
 
     private String anterior;
-    
+
     MostraTema(Tema tema, String anterior) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.tema = tema;
         this.anterior = anterior;
+        //mostra dados do tema em seus lugares determinados
         labNomeTema.setText(tema.getTituloTema());
         privado.setVisible(tema.isPrivado());
         labMateriaTema.setText(tema.getMateriaTema());
         QcDTO qcDTO = new QcDTO();
         listConteudos.removeAll();
+        //busca conteudos para o tema e os mostra em uma lista
         ArrayList<QC> qcS = qcDTO.retornaQCsTema(tema.getCodTema());
         if (qcS != null) {
             for (QC qcObj : qcS) {
@@ -33,8 +35,7 @@ public class MostraTema extends javax.swing.JFrame {
             }
         }
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -133,12 +134,15 @@ public class MostraTema extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        if(anterior.indexOf("/") > 0){
+        //botão voltar orienta para a janela por onde essa foi chamada, através da String anterior 
+        if (anterior.indexOf("/") > 0) {
+            //se foi chamada pelo perfil, também é passada janela que chamou perfil, pela String
             String[] ant = anterior.split("/");
             Perfil perfil = new Perfil(ant[0], tema.getNomeUsuario());
             perfil.setVisible(true);
             this.setVisible(false);
-        }else{
+        } else {
+            //se foi chamada pela pesquisa, se vai para a determinada janela
             Pesquisar pesquisar = new Pesquisar(anterior);
             pesquisar.setVisible(true);
             this.setVisible(false);
@@ -146,9 +150,10 @@ public class MostraTema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnPraticarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPraticarActionPerformed
-       Praticar praticar = new Praticar(tema.getCodTema(), anterior);
-       praticar.setVisible(true);
-       this.setVisible(false);
+        //botão praticar conduz a janela praticar
+        Praticar praticar = new Praticar(tema.getCodTema(), anterior);
+        praticar.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnPraticarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

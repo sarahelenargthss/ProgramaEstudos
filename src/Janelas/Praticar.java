@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Praticar extends javax.swing.JFrame {
+//tela usada para estudar ou praticar os conteudos de determinado tema
 
     public Praticar() {
         initComponents();
@@ -30,7 +31,9 @@ public class Praticar extends javax.swing.JFrame {
         this.anterior = anterior;
         this.codTema = codTema;
         posicao = 0;
+        //no inicio o botao anterior está disenable
         btnAnterior.setEnabled(false);
+        //chama-se método praticando
         praticando();
     }
 
@@ -155,6 +158,7 @@ public class Praticar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarTemaActionPerformed
+        //botão voltar orienta ao mostra tema
         TemaDTO tDTO = new TemaDTO();
         MostraTema tema = new MostraTema(tDTO.retornaTema(codTema), anterior);
         tema.setVisible(true);
@@ -162,23 +166,29 @@ public class Praticar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarTemaActionPerformed
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        //para voltar um conteudo, a posição na ArrayList diminui em uma casa
         resp.setText("");
         posicao--;
+        //se voltou-se para a primeira posição (no caso 0), o botão anterior é desabilitado
         if (posicao == 0) {
             btnAnterior.setEnabled(false);
         } else {
             btnAnterior.setEnabled(true);
         }
+        //chama-se método praticando
         praticando();
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private void btnVerRespostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerRespostaActionPerformed
+        //ver resposta coloca a resposta para o termo ou pergunta na lista da direita
         resp.setText(conteudos.get(posicao).getConceitoResposta());
     }//GEN-LAST:event_btnVerRespostaActionPerformed
 
     private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
+        //botão próximo aumenta em uma casa a posição na ArrayLIst
         resp.setText("");
         posicao++;
+        //se chegou-se na ultima casa, botão proximo é desabilitado
         if (posicao == conteudos.size() - 1) {
             btnProximo.setEnabled(false);
         } else {
@@ -199,6 +209,7 @@ public class Praticar extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void praticando() {
+        //verifica posição na ArrayList para (des)habilitar os botões
         if (posicao == 0) {
             btnAnterior.setEnabled(false);
             btnProximo.setEnabled(true);
@@ -209,6 +220,7 @@ public class Praticar extends javax.swing.JFrame {
             btnProximo.setEnabled(true);
             btnAnterior.setEnabled(true);
         }
+        //mostra-se o termo ou questão do conteudo na vez
         termos.setText(conteudos.get(posicao).getTermoPergunta());
 
     }

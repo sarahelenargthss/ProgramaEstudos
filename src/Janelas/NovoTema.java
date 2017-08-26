@@ -14,6 +14,8 @@ public class NovoTema extends javax.swing.JFrame {
     public NovoTema() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //altera TooLTipText e põe botão salvar como disenable pois é necessário ter,
+        //pelo menos, um conteúdo por tema
         btnSalvarTema.setToolTipText("É necessário cadastrar  pelo menos dois conteúdos....");
         btnSalvarTema.setEnabled(false);
         codigoTema = 0;
@@ -24,13 +26,17 @@ public class NovoTema extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         QcDTO qcDTO = new QcDTO();
         if (qcDTO.retornaQCsTema(cod).size() >= 1) {
+            //se o tema tem pelo menos um conteudo salvo
             btnSalvarTema.setToolTipText("Salvar Tema...");
             btnSalvarTema.setEnabled(true);
         } else {
+            //senão, altera TooLTipText e põe botão salvar como disenable pois é necessário ter,
+            //pelo menos, um conteúdo por tema
             btnSalvarTema.setToolTipText("É necessário cadastrar  pelo menos um conteúdo....");
             btnSalvarTema.setEnabled(false);
         }
         TemaDTO temaDTO = new TemaDTO();
+        //coloca novamente os dados do tema que etá sendo cadastrado
         Tema tema = temaDTO.retornaTema(cod);
         acessoPrivado.setSelected(tema.isPrivado());
         if (tema.getTituloTema().equals("#")) {
@@ -176,6 +182,8 @@ public class NovoTema extends javax.swing.JFrame {
     }//GEN-LAST:event_tituloNovoTemaActionPerformed
 
     private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
+        //botão voltar orienta ao menu, mas, antes verifica, se algu tema estava sendo cadastrado
+        //e não foi salvo, oferecendo essa opção ao usuario
         boolean salvouExcluiu = true;
         if (materiaNovoTema.getSelectedIndex() != 0 || !Util.validaString(tituloNovoTema.getText().trim())) {
             if (Util.mensagemOpcao("Deseja salvar esse tema antes de sair?", "Salvar tema?") == 0) {
@@ -205,6 +213,8 @@ public class NovoTema extends javax.swing.JFrame {
         CadastrarQC cadastrarQC;
         UsuarioDTO useDTO = new UsuarioDTO();
         Tema tema;
+        //quando o botão novo conceito é acionado é preciso salvar o tema
+        //que está seno cadastrado para que se possa continuar seu casdastro posteriormente
         if (!(materia.equals("<Selecione a Matéria>") || Util.validaString(titulo))) {
             //se o usuário já tiver preenchido alguma coisa e quiser adicionar um novo conteúdo,
             //o que ele já cadastrou terá que ser salvo para que quando ele volte seus dados ainda "estejam la"
@@ -221,12 +231,14 @@ public class NovoTema extends javax.swing.JFrame {
         TemaDTO temaDTO = new TemaDTO();
         //pré-tema é salvo no BD:
         if (tema.getTituloTema().length() <= 30) {
+            //verifica se o tema já foi cadastrado em outro momento por esse usuario
             if (temaDTO.verificaTema(tema) == 0) {
                 tema.setMateriaTema("#" + tema.getMateriaTema());
                 boolean salvou;
                 if (codigoTema == 0) {
                     salvou = temaDTO.salvaTema(tema);
                 } else {
+                    //se já há um pré-tema salvo desse tema no BD, os dados são somente atualizados
                     salvou = temaDTO.atualizaTema(tema);
                 }
                 if (salvou) {
@@ -246,18 +258,21 @@ public class NovoTema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoConceitoActionPerformed
 
     private void btnSalvarTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTemaActionPerformed
+        //botao salvar chama metodo salvarTema()
         salvarTema();
     }//GEN-LAST:event_btnSalvarTemaActionPerformed
 
     private void salvarTema() {
         String titulo = tituloNovoTema.getText().trim();
         String materia = (String) materiaNovoTema.getSelectedItem();
+        //valida dados
         if (materia.equals("<Selecione a Matéria>") || Util.validaString(titulo)) {
             Util.mensagem("Todos os campos devem ser preenchidos!", "Entrada inválida!", JOptionPane.ERROR_MESSAGE);
         } else {
             UsuarioDTO uDTO = new UsuarioDTO();
             TemaDTO tDTO = new TemaDTO();
             Tema tema = new Tema(titulo, acessoPrivado.isSelected(), materia, codigoTema, uDTO.retornaLogado());
+            //salva os dados, atualizando seu pré-tema
             if (tDTO.atualizaTema(tema)) {
                 Util.mensagem("O novo tema foi salvo no BD.", "Salvo com sucesso!", JOptionPane.INFORMATION_MESSAGE);
                 tituloNovoTema.setText("");
@@ -271,6 +286,8 @@ public class NovoTema extends javax.swing.JFrame {
     }
 
     private int retornaNumeroMateria(String materiaTema) {
+        //busca o numero da materia que fora selecionada 
+        //para pô-la como selecionada novamente
         String[] materias = new String[13];
 
         int numMat = 0;

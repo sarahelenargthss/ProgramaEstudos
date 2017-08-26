@@ -9,13 +9,14 @@ public class Usuario {
     private String nome;
     private String senha;
 
+//armazena e manipula dados dos usuarios
     public Usuario(String nome, String senha) {
         this.nome = nome;
         this.senha = senha;
     }
 
     public Usuario() {
-        
+
     }
 
     public boolean verificaLogin() {

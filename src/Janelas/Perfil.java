@@ -6,17 +6,21 @@ import dto.UsuarioDTO;
 import java.util.ArrayList;
 
 public class Perfil extends javax.swing.JFrame {
+//tela que mostra o perfil do usuario logado ou de outro usuario que foi pesquisado
 
     private String anterior;
 
     public Perfil(String anterior, String usuario) {
         initComponents();
         this.setLocationRelativeTo(null);
+        //anterior possui a informação da tela anterior a essa, o lugar que chamou a tela perfil
         this.anterior = anterior;
         UsuarioDTO useDTO = new UsuarioDTO();
-        if(!useDTO.retornaLogado().equals(usuario.toLowerCase())){
+        //se não for o próprio usuário vendo seu perfil o botão logout será desativado
+        if (!useDTO.retornaLogado().equals(usuario.toLowerCase())) {
             btnDeslogar.setVisible(false);
         }
+        //mostra-se o nome do usuario
         String pLetra = String.valueOf(usuario.charAt(0));
         labNomeUsuario.setText(usuario.replaceFirst(pLetra, pLetra.toUpperCase()));
         montaPerfil();
@@ -106,7 +110,8 @@ public class Perfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void montaPerfil() {
-        //puxar temas e colocar na área de texto
+        //método que puxa as listas de temas do usuario e as coloca na lista, montando seu perfil
+        //puxa os temas e coloca-os na área de texto
         TemaDTO tDTO = new TemaDTO();
         listTemasUsuario.removeAll();
         UsuarioDTO uDTO = new UsuarioDTO();
@@ -114,6 +119,8 @@ public class Perfil extends javax.swing.JFrame {
         ArrayList<Tema> temas = tDTO.retornaTemasUsuario();
         if (temas != null) {
             for (Tema t : temas) {
+                //se o usuario logado não for o usuario a qual pertence o perfil sendo mostrado, 
+                //ou não houver usuario logado, os temas privados não aparecem na lista
                 if (logado.equals(t.getNomeUsuario()) || !t.isPrivado()) {
                     listTemasUsuario.add(t.getTituloTema() + " (" + t.getMateriaTema() + ")");
                 }
@@ -122,11 +129,14 @@ public class Perfil extends javax.swing.JFrame {
     }
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        //ação do botão voltar, do perfil        
+        //se o perfil foi acessado atrvés do menu, chama-se a tela menu
         if (anterior.equals("menu")) {
             Menu menu = new Menu();
             menu.setVisible(true);
             this.setVisible(false);
         } else {
+            //senão, o acesso foi feito através da tela pesquisa que é então chamada
             Pesquisar pesquisar = new Pesquisar(anterior);
             pesquisar.setVisible(true);
             this.setVisible(false);
@@ -134,10 +144,14 @@ public class Perfil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnDeslogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeslogarActionPerformed
-        UsuarioDTO aux = new UsuarioDTO();
-        String nomeLogado = aux.retornaLogado();
+        UsuarioDTO uDTO = new UsuarioDTO();
+        //busca usuario logado
+        String nomeLogado = uDTO.retornaLogado();
+        //se houver usuario logado
         if (!nomeLogado.equals("")) {
-            if (aux.loginLogout(nomeLogado, false)) {
+            //atualiza o estado do usuario e, não dando erros com o BD,
+            //chama a tela menu
+            if (uDTO.loginLogout(nomeLogado, false)) {
                 Menu menu = new Menu();
                 menu.setVisible(true);
                 this.setVisible(false);
@@ -151,14 +165,21 @@ public class Perfil extends javax.swing.JFrame {
     }//GEN-LAST:event_listTemasUsuarioActionPerformed
 
     private void listTemasUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listTemasUsuarioMouseClicked
+        //busca tema da lista que foi clicado
         String buscaTema = evt.getComponent().toString();
+        //cria um objeto de ema para salvar os dados
         Tema tema = new Tema();
+        //encontra os valores necessarios do componente
         tema.setTituloTema(buscaTema.substring(buscaTema.indexOf("=") + 1, buscaTema.indexOf(" (")));
         tema.setMateriaTema(buscaTema.substring(buscaTema.indexOf("(") + 1, buscaTema.indexOf(")")));
         UsuarioDTO uDTO = new UsuarioDTO();
         tema.setNomeUsuario(uDTO.retornaLogado());
         TemaDTO tDTO = new TemaDTO();
+        //tema recebe todos os seus dados pelo método retornaTema(), passando o codigo do tema buscado 
+        //pelo método verificaTema() que verifica os temas, buscando aquele que possui as informações do tema clicado
         tema = tDTO.retornaTema(tDTO.verificaTema(tema));
+        //chama a tela mostra tema passando uma string que orienta que a tela esta sendo
+        //chamada pelo perfil, que foi chamado pelo que se orienta na String anterior
         MostraTema mTema = new MostraTema(tema, (anterior + "/perfil"));
         mTema.setVisible(true);
         this.setVisible(false);

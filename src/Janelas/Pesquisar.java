@@ -6,6 +6,7 @@ import dto.UsuarioDTO;
 import java.util.ArrayList;
 
 public class Pesquisar extends javax.swing.JFrame {
+//permite que se busque por temas ou usuario através de um termo digitado na "barra de pesquisa"
 
     public Pesquisar() {
         initComponents();
@@ -15,6 +16,10 @@ public class Pesquisar extends javax.swing.JFrame {
     Pesquisar(String anterior) {
         initComponents();
         this.setLocationRelativeTo(null);
+        //chama o método mostraLista() para mostrar as 
+        //listas de acordo com a String anterior que armazena o que foi digitado na pesquisa
+        //anteriormente a se clicar em algum perfil ou tema (onde se deciciu retornar a tela pesquisa)
+        //para que a pesquisa perdurasse para o usuario
         mostraListas(anterior);
         pesquisa.setText(anterior);
     }
@@ -174,12 +179,14 @@ public class Pesquisar extends javax.swing.JFrame {
     }//GEN-LAST:event_pesquisaActionPerformed
 
     private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
+        //botão voltar orienta ao menu
         Menu menu = new Menu();
         menu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        //botão pesquisa, ao ser clicado busca o termo da pesquisa e manda para o método mostraListas()
         String busca = pesquisa.getText().trim();
         mostraListas(busca);
     }//GEN-LAST:event_btnPesquisarActionPerformed
@@ -189,51 +196,71 @@ public class Pesquisar extends javax.swing.JFrame {
     }//GEN-LAST:event_listTemasPesquisaActionPerformed
 
     private void listTemasPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listTemasPesquisaMouseClicked
+        //busca tema da lista que foi clicado
         String buscaTema = evt.getComponent().toString();
+        //cria um objeto de ema para salvar os dados
         Tema tema = new Tema();
+        //encontra os valores necessarios do componente
         tema.setTituloTema(buscaTema.substring(buscaTema.indexOf("=") + 1, buscaTema.indexOf(" (")));
         tema.setMateriaTema(buscaTema.substring(buscaTema.indexOf("(") + 1, buscaTema.indexOf(")")));
         UsuarioDTO uDTO = new UsuarioDTO();
         tema.setNomeUsuario(uDTO.retornaLogado());
         TemaDTO tDTO = new TemaDTO();
+        //tema recebe todos os seus dados pelo método retornaTema(), passando o codigo do tema buscado 
+        //pelo método verificaTema() que verifica os temas, buscando aquele que possui as informações do tema clicado
         tema = tDTO.retornaTema(tDTO.verificaTema(tema));
+        //chama a tela mostra tema passando uma string que orienta que a tela esta sendo
+        //chamada pela pesquisa
         MostraTema mTema = new MostraTema(tema, (pesquisa.getText()));
         mTema.setVisible(true);
         this.setVisible(false);
+
     }//GEN-LAST:event_listTemasPesquisaMouseClicked
 
     private void listUsuariosPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listUsuariosPesquisaMouseClicked
+        //busca usuario, da lista, que foi clicado
         String buscaTema = evt.getComponent().toString();
+        //tira o necessário do componente buscado
         String nome = buscaTema.substring(buscaTema.indexOf("=") + 1, buscaTema.indexOf("]"));
+        //chama a tela perfil passando uma String do que foi usado para a pesquisa (para o momento de retornar a essa tela)
+        //e o nome do usuario
         Perfil use = new Perfil(pesquisa.getText(), nome);
         use.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_listUsuariosPesquisaMouseClicked
 
     public void mostraListas(String busca) {
+        //verifica se o termo usado para a pesquisa é vazio, pois se for, não há a necessidade 
+        //de se buscar os resultas
         if (!busca.equals("")) {
             TemaDTO tDTO = new TemaDTO();
             UsuarioDTO useDTO = new UsuarioDTO();
+            //armazena numa ArrayList os temas que resultaram
             ArrayList<Tema> temas = tDTO.pesquisaTemas(busca);
             listTemasPesquisa.removeAll();
             UsuarioDTO uDTO = new UsuarioDTO();
             String logado = uDTO.retornaLogado();
             if (temas.size() > 0) {
                 for (Tema t : temas) {
-                    if(logado.equals(t.getNomeUsuario()) || !t.isPrivado()){
+                    //mostra os temas (quando o usuario não estiver logado ou não estiver vendo seu
+                    //próprio perfil, os temas privados não serão mostrados)
+                    if (logado.equals(t.getNomeUsuario()) || !t.isPrivado()) {
                         listTemasPesquisa.add(t.getTituloTema() + " (" + t.getMateriaTema() + ")");
                     }
                 }
             } else {
+                //se não houverem temas para a pesquisa uma mensagem é deixada
                 listTemasPesquisa.add("Não foram encontrados resultados para '" + busca + "'");
             }
             listUsuariosPesquisa.removeAll();
+            //armazena lista de usuarios, resultados da pesquisa, em uma ArrayList
             ArrayList<String> usuarios = useDTO.pesquisaTemas(busca);
             if (usuarios.size() > 0) {
                 for (String u : usuarios) {
                     listUsuariosPesquisa.add(u);
                 }
             } else {
+                //não possuindo resultados, uma mensagem é deixada
                 listUsuariosPesquisa.add("Não foram encontrados resultados para '" + busca + "'");
             }
         }

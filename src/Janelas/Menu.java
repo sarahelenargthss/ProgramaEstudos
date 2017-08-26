@@ -28,26 +28,31 @@ CREATE TABLE QC(
     COD_TEMA INT NOT NULL,
     FOREIGN KEY(COD_TEMA) REFERENCES TEMA(COD_TEMA)
 );
-*/
-
+ */
 package Janelas;
 
 import dto.UsuarioDTO;
 
 public class Menu extends javax.swing.JFrame {
+//primeira tela a ser executada, que possui todas as opções de menu
 
     public Menu() {
         initComponents();
         this.setLocationRelativeTo(null);
         UsuarioDTO useDTO = new UsuarioDTO();
+        //atribui usuario logado a nome
         String nome = useDTO.retornaLogado();
         if (!nome.equals("")) {
+            //se houver usuario logado o botão de login fica disanable
             btnLogin.setEnabled(false);
+            //mostra-se no canto da tela o nome do usuario logado
             String pLetra = String.valueOf(nome.charAt(0));
             nomeLogado.setText(nome.replaceFirst(pLetra, pLetra.toUpperCase()));
         } else {
+            //se não houver usuário logado, os botões perfil e cadastrar tema ficam disenable
             btnPerfil.setEnabled(false);
             btnCadastrarTema.setEnabled(false);
+            //nada é mostrado no lugar de nome
             nomeLogado.setText("");
         }
     }
@@ -55,6 +60,7 @@ public class Menu extends javax.swing.JFrame {
     Menu(String nome) {
         initComponents();
         this.setLocationRelativeTo(null);
+        //nome do usuario logado é mostrado na tela após feito o cadastro e botão login fica disenable
         String pLetra = String.valueOf(nome.charAt(0));
         nomeLogado.setText(nome.replaceFirst(pLetra, pLetra.toUpperCase()));
         btnLogin.setEnabled(false);
@@ -173,24 +179,29 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
+        //vai para tela perfil, passando a String "menu" para que seja identificado o lugar que a chamou
+        //passa-se também o nome do usuario logado
         Perfil perfil = new Perfil("menu", nomeLogado.getText());
         perfil.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnPerfilActionPerformed
 
     private void btnCadastrarTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarTemaActionPerformed
+        //chama-se a tela de cadastrar tema
         NovoTema novoTema = new NovoTema();
         novoTema.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnCadastrarTemaActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        //chama-se a tela de pesquisa
         Pesquisar pesquisar = new Pesquisar();
         pesquisar.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        //chama-se a tela de login (que terá as opções de login ou novos cadastros)
         NovoLogin telaLogin = new NovoLogin(this, true);
         telaLogin.setVisible(true);
         this.setVisible(false);

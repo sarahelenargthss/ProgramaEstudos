@@ -9,8 +9,10 @@ import javax.swing.JOptionPane;
 import util.Util;
 
 public class TemaDTO {
+//trabalha com os temas, os relacionando ao BD
 
     public boolean salvaTema(Tema tema) {
+        //salva tema recebido por parâmetro
         try {
             PreparedStatement p = Util.retornaConexao("INSERT INTO TEMA (TITULO_TEMA, MATERIA_TEMA, PRIVADO, NOME_USUARIO) VALUES (?, ?, ?, ?);");
             p.setString(1, tema.getTituloTema());
@@ -26,6 +28,7 @@ public class TemaDTO {
     }
 
     public Tema retornaTema(int cod) {
+        //retorn o tema com determinado codigo ou um pré-tema(verificar pré-tema no NovoTema)
         Tema tema = new Tema();
         UsuarioDTO uDTO = new UsuarioDTO();
         PreparedStatement p;
@@ -54,6 +57,7 @@ public class TemaDTO {
     }
 
     public boolean atualizaTema(Tema tema) {
+        //atualiza o tema
         try {
             PreparedStatement p = Util.retornaConexao("UPDATE TEMA SET TITULO_TEMA = ?, MATERIA_TEMA = ?, PRIVADO = ? WHERE COD_TEMA = ?;");
             p.setString(1, tema.getTituloTema());
@@ -69,6 +73,7 @@ public class TemaDTO {
     }
 
     public boolean excluiTema(int codigoTema) {
+        //exclui o tema
         QcDTO qcDTO = new QcDTO();
         qcDTO.excluiQCs(codigoTema);
         try {
@@ -83,6 +88,7 @@ public class TemaDTO {
     }
 
     public ArrayList<Tema> retornaTemasUsuario() {
+        //retorna o tem de um usuario
         ArrayList<Tema> temas = new ArrayList();
         try {
             PreparedStatement p = Util.retornaConexao("SELECT * FROM TEMA WHERE NOME_USUARIO = ?;");
@@ -90,7 +96,7 @@ public class TemaDTO {
             p.setString(1, uDTO.retornaLogado());
             ResultSet rs = p.executeQuery();
             Tema tema;
-            while(rs.next()){
+            while (rs.next()) {
                 tema = new Tema();
                 tema.setCodTema(rs.getInt(1));
                 tema.setTituloTema(rs.getString(2));
@@ -108,14 +114,14 @@ public class TemaDTO {
 
     public int verificaTema(Tema tema) {
         int cod = 0;
-            try {
+        try {
             PreparedStatement p = Util.retornaConexao("SELECT COD_TEMA FROM TEMA WHERE NOME_USUARIO = ? AND TITULO_TEMA = ? AND MATERIA_TEMA = ?;");
             UsuarioDTO uDTO = new UsuarioDTO();
             p.setString(1, uDTO.retornaLogado());
             p.setString(2, tema.getTituloTema());
             p.setString(3, tema.getMateriaTema());
             ResultSet rs = p.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 cod = rs.getInt(1);
             }
         } catch (SQLException e) {
@@ -126,15 +132,16 @@ public class TemaDTO {
     }
 
     public ArrayList<Tema> pesquisaTemas(String busca) {
+        //pesquisa tema
         ArrayList<Tema> temas = new ArrayList();
         try {
             PreparedStatement p = Util.retornaConexao("SELECT * FROM TEMA WHERE lower(TITULO_TEMA) LIKE ? OR lower(MATERIA_TEMA) LIKE ?;");
             UsuarioDTO uDTO = new UsuarioDTO();
-            p.setString(1,  "%"+busca.toLowerCase()+"%");
-            p.setString(2,  "%"+busca.toLowerCase()+"%");
+            p.setString(1, "%" + busca.toLowerCase() + "%");
+            p.setString(2, "%" + busca.toLowerCase() + "%");
             ResultSet rs = p.executeQuery();
             Tema tema;
-            while(rs.next()){
+            while (rs.next()) {
                 tema = new Tema();
                 tema.setCodTema(rs.getInt(1));
                 tema.setTituloTema(rs.getString(2));
@@ -149,9 +156,5 @@ public class TemaDTO {
         }
         return temas;
     }
-    
-    
-
-    
 
 }

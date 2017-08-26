@@ -9,8 +9,10 @@ import javax.swing.JOptionPane;
 import util.Util;
 
 public class QcDTO {
+//trabalha com os conteudos, os relacionando ao BD
 
     public int verificaQC(QC qc) {
+        //verifica se o conteudo
         String tp = "";
         String cr = "";
         try {
@@ -33,6 +35,7 @@ public class QcDTO {
     }
 
     public boolean salvaConteudo(QC qc) {
+        //salva o conteudo
         try {
             PreparedStatement p = Util.retornaConexao("INSERT INTO QC VALUES (? , ?, ?);");
             p.setString(1, qc.getTermoPergunta());
@@ -47,13 +50,14 @@ public class QcDTO {
     }
 
     public ArrayList<QC> retornaQCsTema(int cod) {
+        //retorna uma lista com os conteudos de um determinado tema
         ArrayList<QC> qcS = new ArrayList();
         try {
             PreparedStatement p = Util.retornaConexao("SELECT * FROM QC WHERE COD_TEMA = ?;");
             p.setInt(1, cod);
             ResultSet rs = p.executeQuery();
             QC qc = new QC();
-            while(rs.next()){
+            while (rs.next()) {
                 qc = new QC();
                 qc.setTermoPergunta(rs.getString(1));
                 qc.setConceitoResposta(rs.getString(2));
@@ -68,6 +72,7 @@ public class QcDTO {
     }
 
     public boolean excluiQCs(int cod) {
+        //exclui conteudos de um determinado tema
         try {
             PreparedStatement p = Util.retornaConexao("DELETE FROM QC WHERE COD_TEMA = ?");
             p.setInt(1, cod);

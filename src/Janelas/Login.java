@@ -122,6 +122,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
+        //botão voltar orienta a tela de opção de cadastro ou login
         NovoLogin novoLogin = new NovoLogin(this, true);
         novoLogin.setVisible(true);
         this.setVisible(false);
@@ -129,15 +130,19 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
         String nome = nomeLogin.getText().toLowerCase().trim();
+        //valida dados preenchidos
         if (Util.validaString(nomeLogin.getText()) || Util.validaString(Util.retornaString(senhaLogin.getPassword()))) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Há algum campo vazio!", JOptionPane.INFORMATION_MESSAGE);
         } else {
+            //faz login do usuario verificando se senha e nome são compatíveis
             Usuario usuario = new Usuario(nome, senhaLogin.getText().toLowerCase());
             if (usuario.verificaLogin()) {
+                //quando login está correto volta ao menu, agora logado
                 Menu menu = new Menu(nome);
                 menu.setVisible(true);
                 this.setVisible(false);
-            }else{
+            } else {
+                //senão limpa campo senha 
                 senhaLogin.setText("");
             }
         }
@@ -155,7 +160,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField nomeLogin;
     private javax.swing.JPasswordField senhaLogin;
     // End of variables declaration//GEN-END:variables
-
-    
 
 }

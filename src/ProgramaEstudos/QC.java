@@ -1,12 +1,14 @@
 package ProgramaEstudos;
 
 public class QC {
+
     private String termoPergunta;
     private String conceitoResposta;
     private int codTema;
 
+//armazena e manipula dados dos conteudos
     public QC() {
-       
+
     }
 
     public int getCodTema() {
@@ -16,7 +18,6 @@ public class QC {
     public void setCodTema(int codTema) {
         this.codTema = codTema;
     }
-
 
     public QC(String trmPrg, String cntRsp, int codTemaCadastro) {
         this.termoPergunta = trmPrg;

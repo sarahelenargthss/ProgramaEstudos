@@ -155,6 +155,7 @@ public class Cadastro extends javax.swing.JFrame {
         String nome = nomeUsuario.getText().trim().toLowerCase();
         String senha = Util.retornaString(senhaUsuario.getPassword()).toLowerCase();
         String senhaConfirm = Util.retornaString(confirmaSenha.getPassword()).toLowerCase();
+        //valida os dados preenchidos
         if (Util.validaString(nome)) {
             nomeUsuario.setText("");
             senhaUsuario.setText("");
@@ -163,16 +164,20 @@ public class Cadastro extends javax.swing.JFrame {
         } else {
             senhaUsuario.setText("");
             confirmaSenha.setText("");
+            //verifica se as senha informadas são correspondentes e válidas
             if (!senha.equals(senhaConfirm)) {
                 Util.mensagem("As senhas informadas não são correspondentes!", "Senha Inválida!", JOptionPane.ERROR_MESSAGE);
             } else if (Util.validaString(senha)) {
                 Util.mensagem("A senha informada é inválida!", "Senha inválida!", JOptionPane.ERROR_MESSAGE);
             } else {
+                //realiza o cadastro de usuario
                 Usuario usuario = new Usuario(nome, senha);
+                //obtendo-se sucesso, volta-se ao menu
                 if (usuario.cadastraUsuario()) {
                     Menu menu = new Menu();
                     menu.setVisible(true);
                     this.setVisible(false);
+                    //do contrário, limpa os campos (uma mensagem de erro já foi dada no método cadastraUsuario())
                 } else {
                     nomeUsuario.setText("");
                     senhaUsuario.setText("");
@@ -183,6 +188,7 @@ public class Cadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarCadastroActionPerformed
 
     private void btnVoltarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarLoginActionPerformed
+        //botão voltar orienta a tela de opção de cadastro ou login
         NovoLogin novoLogin = new NovoLogin(this, true);
         novoLogin.setVisible(true);
         this.setVisible(false);
